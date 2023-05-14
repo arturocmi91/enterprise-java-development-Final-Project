@@ -10,6 +10,7 @@ import java.util.Objects;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
     private String employeeName;
     private String employeeEmail;
