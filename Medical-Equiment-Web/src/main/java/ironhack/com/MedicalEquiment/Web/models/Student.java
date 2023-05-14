@@ -14,10 +14,16 @@ private final BigDecimal discount= new BigDecimal("0.15");
     public Student() {
     }
 
-    public Student(String name, String email, String creditCardInfo, List<Item> itemsViewed, List<ReturnInventory> itemsReturned, List<Order> purchaseList, String studentCodeDiscount) {
-        super(name, email, creditCardInfo, itemsViewed, itemsReturned, purchaseList);
+    public Student(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, String studentCodeDiscount) {
+        super(name, email, creditCardInfo, purchaseList);
         this.studentCodeDiscount = studentCodeDiscount;
     }
+
+    public Student(String studentCodeDiscount) {
+        this.studentCodeDiscount = studentCodeDiscount;
+    }
+
+
 
     public String getStudentCodeDiscount() {
         return studentCodeDiscount;
