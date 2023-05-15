@@ -14,19 +14,11 @@ public class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate OrderDate;
-
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    private Inventory inventory;
-
-    /*@OneToOne
-
-
     private Long Qty;
+//Relacion con el inventario donde se toma el item
+    @ManyToMany
 
-    @Enumerated(EnumType.STRING)
-    private OrderType orderType;
-    private BigDecimal profit;*/
+    private List<Inventory> inventories;
 
     @ManyToOne
     @JoinColumn(name="customer_id")
@@ -35,14 +27,76 @@ public class CustomerOrder {
     @OneToMany(mappedBy = "customerOrder")
     private List<ReturnInventory> returnInventories;
 
-    @ManyToOne
-    @JoinColumn(name="employee_id")
-    private Employee employee;
-
-
 
     public CustomerOrder() {
     }
 
+    public CustomerOrder(LocalDate orderDate, Long qty, List<Inventory> inventories, Customer orderedBy, List<ReturnInventory> returnInventories) {
+        OrderDate = orderDate;
+        Qty = qty;
+        this.inventories = inventories;
+        this.orderedBy = orderedBy;
+        this.returnInventories = returnInventories;
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getOrderDate() {
+        return OrderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        OrderDate = orderDate;
+    }
+
+    public Long getQty() {
+        return Qty;
+    }
+
+    public void setQty(Long qty) {
+        Qty = qty;
+    }
+
+    public List<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
+    }
+
+    public Customer getOrderedBy() {
+        return orderedBy;
+    }
+
+    public void setOrderedBy(Customer orderedBy) {
+        this.orderedBy = orderedBy;
+    }
+
+    public List<ReturnInventory> getReturnInventories() {
+        return returnInventories;
+    }
+
+    public void setReturnInventories(List<ReturnInventory> returnInventories) {
+        this.returnInventories = returnInventories;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerOrder that = (CustomerOrder) o;
+        return Objects.equals(id, that.id) && Objects.equals(OrderDate, that.OrderDate) && Objects.equals(Qty, that.Qty) && Objects.equals(inventories, that.inventories) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(returnInventories, that.returnInventories);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, OrderDate, Qty, inventories, orderedBy, returnInventories);
+    }
 }

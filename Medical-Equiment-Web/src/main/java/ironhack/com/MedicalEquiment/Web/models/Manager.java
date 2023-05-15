@@ -20,8 +20,8 @@ public class Manager extends Employee {
     public Manager() {
     }
 
-    public Manager(String employeeName, String employeeEmail, List<CustomerOrder> orders, Manager manager, List<Customer> customers, List<Employee> employees) {
-        super(employeeName, employeeEmail, orders, manager);
+    public Manager(String employeeName, String employeeEmail, List<Customer> customers, List<Employee> employees) {
+        super(employeeName, employeeEmail);
         this.customers = customers;
         this.employees = employees;
     }

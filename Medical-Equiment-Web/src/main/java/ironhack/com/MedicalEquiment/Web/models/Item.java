@@ -16,17 +16,26 @@ public class Item {
     private LocalDate expiredDate;
 
     @OneToMany(mappedBy ="item")
-    List<Inventory> inventories;
+    private List<Inventory> inventories;
+
 
 
     public Item() {
     }
 
-    public Item(String id, String itemName, BigDecimal itemPrice, LocalDate expiredDate) {
-        this.id = id;
+    public Item(String itemName, BigDecimal itemPrice, LocalDate expiredDate, List<Inventory> inventories) {
         this.itemName = itemName;
         ItemPrice = itemPrice;
         this.expiredDate = expiredDate;
+        this.inventories = inventories;
+    }
+
+    public List<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
     }
 
     public String getId() {
@@ -66,11 +75,11 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(ItemPrice, item.ItemPrice) && Objects.equals(expiredDate, item.expiredDate);
+        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(ItemPrice, item.ItemPrice) && Objects.equals(expiredDate, item.expiredDate) && Objects.equals(inventories, item.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemName, ItemPrice, expiredDate);
+        return Objects.hash(id, itemName, ItemPrice, expiredDate, inventories);
     }
 }

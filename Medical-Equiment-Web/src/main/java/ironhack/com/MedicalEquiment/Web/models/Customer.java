@@ -19,18 +19,18 @@ public class Customer {
     private List<CustomerOrder> purchaseList;
 
     @ManyToOne
-    @JoinColumn(name="employee_id")
-    private Employee manager;
+    @JoinColumn(name="manager_id")
+    private Manager manager;
 
     public Customer() {
     }
 
-    public Customer(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList) {
+    public Customer(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, Manager manager) {
         this.name = name;
         this.email = email;
         this.creditCardInfo = creditCardInfo;
-
         this.purchaseList = purchaseList;
+        this.manager = manager;
     }
 
     public Long getId() {
@@ -65,7 +65,6 @@ public class Customer {
         this.creditCardInfo = creditCardInfo;
     }
 
-
     public List<CustomerOrder> getPurchaseList() {
         return purchaseList;
     }
@@ -74,16 +73,24 @@ public class Customer {
         this.purchaseList = purchaseList;
     }
 
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo)  && Objects.equals(purchaseList, customer.purchaseList);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo) && Objects.equals(purchaseList, customer.purchaseList) && Objects.equals(manager, customer.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, creditCardInfo,  purchaseList);
+        return Objects.hash(id, name, email, creditCardInfo, purchaseList, manager);
     }
 }
