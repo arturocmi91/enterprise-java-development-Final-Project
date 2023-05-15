@@ -15,6 +15,10 @@ public class Item {
     private BigDecimal ItemPrice;
     private LocalDate expiredDate;
 
+    @OneToMany(mappedBy ="item")
+    List<Inventory> inventories;
+
+
     public Item() {
     }
 

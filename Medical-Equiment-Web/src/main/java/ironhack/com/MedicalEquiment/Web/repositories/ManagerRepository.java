@@ -1,4 +1,9 @@
 package ironhack.com.MedicalEquiment.Web.repositories;
 
-public interface ManagerRepository {
+import ironhack.com.MedicalEquiment.Web.models.Manager;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ManagerRepository extends JpaRepository<Manager,Long> {
 }
