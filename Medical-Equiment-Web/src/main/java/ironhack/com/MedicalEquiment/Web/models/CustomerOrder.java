@@ -2,6 +2,8 @@ package ironhack.com.MedicalEquiment.Web.models;
 
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,15 +12,20 @@ import java.util.Objects;
 
 @Entity
 public class CustomerOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private LocalDate orderDate;
+    @NotNull
     private Long qty;
 
+    private BigDecimal profit;
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
 //Relacion con el inventario donde se toma el item
+
 
     @ManyToOne
     @JoinColumn(name="customer_id")

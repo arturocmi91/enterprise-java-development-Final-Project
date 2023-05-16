@@ -14,19 +14,24 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private  Integer qty;
+
     @ManyToOne
     @JoinColumn(name="item_id")
     private Item item;
 
-    @OneToMany(mappedBy = "inventory")
-    private List<CustomerOrder> customerOrders;
-
-
     private LocalDate createdInventoryDate;
+
+    private  Integer qty;
+
+
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
+
+
+    @OneToMany(mappedBy = "inventory")
+    private List<CustomerOrder> customerOrders;
+
 
     public Inventory() {
     }
