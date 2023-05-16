@@ -14,8 +14,8 @@ private final BigDecimal studentDiscount= new BigDecimal("0.15");
     public Student() {
     }
 
-    public Student(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, Manager manager, String studentCodeDiscount) {
-        super(name, email, creditCardInfo, purchaseList, manager);
+    public Student(String name, String email, String creditCardInfo, Manager manager, String studentCodeDiscount) {
+        super(name, email, creditCardInfo, manager);
         this.studentCodeDiscount = studentCodeDiscount;
     }
 

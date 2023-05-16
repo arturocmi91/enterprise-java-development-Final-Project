@@ -25,11 +25,11 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, Manager manager) {
+    public Customer(String name, String email, String creditCardInfo, Manager manager) {
         this.name = name;
         this.email = email;
         this.creditCardInfo = creditCardInfo;
-        this.purchaseList = purchaseList;
+
         this.manager = manager;
     }
 
@@ -46,7 +46,11 @@ public class Customer {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name.matches("[a-zA-Z]+\\s+[a-zA-Z]+")) {
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("El nombre debe estar en el formato 'nombre apellido'");
+        }
     }
 
     public String getEmail() {
@@ -65,9 +69,7 @@ public class Customer {
         this.creditCardInfo = creditCardInfo;
     }
 
-    public List<CustomerOrder> getPurchaseList() {
-        return purchaseList;
-    }
+
 
     public void setPurchaseList(List<CustomerOrder> purchaseList) {
         this.purchaseList = purchaseList;
@@ -86,11 +88,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo) && Objects.equals(purchaseList, customer.purchaseList) && Objects.equals(manager, customer.manager);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo) && Objects.equals(manager, customer.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, creditCardInfo, purchaseList, manager);
+        return Objects.hash(id, name, email, creditCardInfo,  manager);
     }
 }

@@ -15,14 +15,17 @@ public class CustomerOrder {
     private Long id;
     private LocalDate OrderDate;
     private Long Qty;
-//Relacion con el inventario donde se toma el item
-    @ManyToMany
 
-    private List<Inventory> inventories;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
+//Relacion con el inventario donde se toma el item
 
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer orderedBy;
+
+    @ManyToMany
+    private List<Inventory> inventories;
 
     @OneToMany(mappedBy = "customerOrder")
     private List<ReturnInventory> returnInventories;
@@ -31,11 +34,12 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(LocalDate orderDate, Long qty, List<Inventory> inventories, Customer orderedBy, List<ReturnInventory> returnInventories) {
+    public CustomerOrder(LocalDate orderDate, Long qty, OrderType orderType, Customer orderedBy, List<Inventory> inventories, List<ReturnInventory> returnInventories) {
         OrderDate = orderDate;
         Qty = qty;
-        this.inventories = inventories;
+        this.orderType = orderType;
         this.orderedBy = orderedBy;
+        this.inventories = inventories;
         this.returnInventories = returnInventories;
     }
 
@@ -63,12 +67,12 @@ public class CustomerOrder {
         Qty = qty;
     }
 
-    public List<Inventory> getInventories() {
-        return inventories;
+    public OrderType getOrderType() {
+        return orderType;
     }
 
-    public void setInventories(List<Inventory> inventories) {
-        this.inventories = inventories;
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
     }
 
     public Customer getOrderedBy() {
@@ -77,6 +81,14 @@ public class CustomerOrder {
 
     public void setOrderedBy(Customer orderedBy) {
         this.orderedBy = orderedBy;
+    }
+
+    public List<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
     }
 
     public List<ReturnInventory> getReturnInventories() {
@@ -92,11 +104,11 @@ public class CustomerOrder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
-        return Objects.equals(id, that.id) && Objects.equals(OrderDate, that.OrderDate) && Objects.equals(Qty, that.Qty) && Objects.equals(inventories, that.inventories) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(returnInventories, that.returnInventories);
+        return Objects.equals(id, that.id) && Objects.equals(OrderDate, that.OrderDate) && Objects.equals(Qty, that.Qty) && orderType == that.orderType && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventories, that.inventories) && Objects.equals(returnInventories, that.returnInventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, OrderDate, Qty, inventories, orderedBy, returnInventories);
+        return Objects.hash(id, OrderDate, Qty, orderType, orderedBy, inventories, returnInventories);
     }
 }
