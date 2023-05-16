@@ -1,14 +1,11 @@
 package ironhack.com.MedicalEquiment.Web;
 
 import ironhack.com.MedicalEquiment.Web.models.Customer;
-import ironhack.com.MedicalEquiment.Web.models.Inventory;
 import ironhack.com.MedicalEquiment.Web.models.Manager;
 import ironhack.com.MedicalEquiment.Web.repositories.CustomerOrderRepository;
 import ironhack.com.MedicalEquiment.Web.repositories.CustomerRepository;
 import ironhack.com.MedicalEquiment.Web.repositories.InventoryRepository;
 import ironhack.com.MedicalEquiment.Web.repositories.ManagerRepository;
-import net.bytebuddy.pool.TypePool;
-import org.hamcrest.text.IsEmptyString;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +42,7 @@ public class FunctionTest {
 
        ));
 
-       Manager generalManager= new Manager("Arturo Mendoza","art123@abc.com",customersRegister1,null,null);
+       Manager generalManager= new Manager("Arturo Mendoza","art123@abc.com",customersRegister1,null,null, returnInventories);
 
        managers=managerRepository.saveAll(List.of(generalManager));
 

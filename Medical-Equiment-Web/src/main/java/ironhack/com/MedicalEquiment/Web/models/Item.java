@@ -12,20 +12,18 @@ public class Item {
     @Id
     private String id;
     private String itemName;
-    private BigDecimal ItemPrice;
+    private BigDecimal itemPrice;
     private LocalDate expiredDate;
 
     @OneToMany(mappedBy ="item")
     private List<Inventory> inventories;
-
-
 
     public Item() {
     }
 
     public Item(String itemName, BigDecimal itemPrice, LocalDate expiredDate, List<Inventory> inventories) {
         this.itemName = itemName;
-        ItemPrice = itemPrice;
+        itemPrice = itemPrice;
         this.expiredDate = expiredDate;
         this.inventories = inventories;
     }
@@ -55,11 +53,11 @@ public class Item {
     }
 
     public BigDecimal getItemPrice() {
-        return ItemPrice;
+        return itemPrice;
     }
 
     public void setItemPrice(BigDecimal itemPrice) {
-        ItemPrice = itemPrice;
+        itemPrice = itemPrice;
     }
 
     public LocalDate getExpiredDate() {
@@ -75,11 +73,11 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(ItemPrice, item.ItemPrice) && Objects.equals(expiredDate, item.expiredDate) && Objects.equals(inventories, item.inventories);
+        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(itemPrice, item.itemPrice) && Objects.equals(expiredDate, item.expiredDate) && Objects.equals(inventories, item.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemName, ItemPrice, expiredDate, inventories);
+        return Objects.hash(id, itemName, itemPrice, expiredDate, inventories);
     }
 }

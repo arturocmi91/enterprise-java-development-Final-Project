@@ -3,7 +3,6 @@ package ironhack.com.MedicalEquiment.Web.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,14 +15,26 @@ public class Manager extends Employee {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
+    @OneToMany(mappedBy = "manager")
+    private List<ReturnInventory> returnInventories;
+
 
     public Manager() {
     }
 
-    public Manager(String employeeName, String employeeEmail, List<Customer> customers, List<Employee> employees, Manager manager) {
+    public Manager(String employeeName, String employeeEmail, List<Customer> customers, List<Employee> employees, Manager manager, List<ReturnInventory> returnInventories) {
         super(employeeName, employeeEmail, manager);
         this.customers = customers;
         this.employees = employees;
+        this.returnInventories = returnInventories;
+    }
+
+    public List<ReturnInventory> getReturnInventories() {
+        return returnInventories;
+    }
+
+    public void setReturnInventories(List<ReturnInventory> returnInventories) {
+        this.returnInventories = returnInventories;
     }
 
     public List<Customer> getCustomers() {
@@ -48,11 +59,11 @@ public class Manager extends Employee {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Manager manager = (Manager) o;
-        return Objects.equals(customers, manager.customers) && Objects.equals(employees, manager.employees);
+        return Objects.equals(customers, manager.customers) && Objects.equals(employees, manager.employees) && Objects.equals(returnInventories, manager.returnInventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), customers, employees);
+        return Objects.hash(super.hashCode(), customers, employees, returnInventories);
     }
 }

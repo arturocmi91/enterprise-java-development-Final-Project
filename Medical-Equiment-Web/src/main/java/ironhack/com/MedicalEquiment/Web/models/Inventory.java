@@ -36,5 +36,72 @@ public class Inventory {
     public Inventory() {
     }
 
+    public Inventory(Item item, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<CustomerOrder> customerOrders) {
+        this.item = item;
+        this.createdInventoryDate = createdInventoryDate;
+        this.qty = qty;
+        this.itemStatus = itemStatus;
+        this.customerOrders = customerOrders;
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public LocalDate getCreatedInventoryDate() {
+        return createdInventoryDate;
+    }
+
+    public void setCreatedInventoryDate(LocalDate createdInventoryDate) {
+        this.createdInventoryDate = createdInventoryDate;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    public ItemStatus getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(ItemStatus itemStatus) {
+        this.itemStatus = itemStatus;
+    }
+
+    public List<CustomerOrder> getCustomerOrders() {
+        return customerOrders;
+    }
+
+    public void setCustomerOrders(List<CustomerOrder> customerOrders) {
+        this.customerOrders = customerOrders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inventory inventory = (Inventory) o;
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(customerOrders, inventory.customerOrders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, item, createdInventoryDate, qty, itemStatus, customerOrders);
+    }
 }

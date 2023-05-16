@@ -42,5 +42,90 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
+    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, Customer orderedBy, Inventory inventory, List<ReturnInventory> returnInventories) {
+        this.orderDate = orderDate;
+        this.qty = qty;
+        this.profit = profit;
+        this.orderType = orderType;
+        this.orderedBy = orderedBy;
+        this.inventory = inventory;
+        this.returnInventories = returnInventories;
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Long getQty() {
+        return qty;
+    }
+
+    public void setQty(Long qty) {
+        this.qty = qty;
+    }
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        this.profit = profit;
+    }
+
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
+
+    public Customer getOrderedBy() {
+        return orderedBy;
+    }
+
+    public void setOrderedBy(Customer orderedBy) {
+        this.orderedBy = orderedBy;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public List<ReturnInventory> getReturnInventories() {
+        return returnInventories;
+    }
+
+    public void setReturnInventories(List<ReturnInventory> returnInventories) {
+        this.returnInventories = returnInventories;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerOrder that = (CustomerOrder) o;
+        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) && Objects.equals(returnInventories, that.returnInventories);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, orderDate, qty, profit, orderType, orderedBy, inventory, returnInventories);
+    }
 }
