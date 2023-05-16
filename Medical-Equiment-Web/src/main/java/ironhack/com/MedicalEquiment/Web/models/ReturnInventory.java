@@ -32,58 +32,5 @@ private CustomerOrder customerOrder;
     public ReturnInventory() {
     }
 
-    public ReturnInventory(Item item, List<CustomerOrder> customerOrders, LocalDate createdInventoryDate, ItemStatus itemStatus, ItemCondition itemCondition, Item itemBarcode, CustomerOrder customerOrder) {
-        super(item, customerOrders, createdInventoryDate, itemStatus);
-        ItemCondition = itemCondition;
-        ItemBarcode = itemBarcode;
-        this.customerOrder = customerOrder;
-    }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ItemCondition getItemCondition() {
-        return ItemCondition;
-    }
-
-    public void setItemCondition(ItemCondition itemCondition) {
-        ItemCondition = itemCondition;
-    }
-
-    public Item getItemBarcode() {
-        return ItemBarcode;
-    }
-
-    public void setItemBarcode(Item itemBarcode) {
-        ItemBarcode = itemBarcode;
-    }
-
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
-
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ReturnInventory that = (ReturnInventory) o;
-        return Objects.equals(id, that.id) && ItemCondition == that.ItemCondition && Objects.equals(ItemBarcode, that.ItemBarcode) && Objects.equals(customerOrder, that.customerOrder);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, ItemCondition, ItemBarcode, customerOrder);
-    }
 }

@@ -10,6 +10,7 @@ import ironhack.com.MedicalEquiment.Web.repositories.ManagerRepository;
 import net.bytebuddy.pool.TypePool;
 import org.hamcrest.text.IsEmptyString;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -32,21 +33,34 @@ public class FunctionTest {
    @BeforeEach
     public void setup(){
 
-       customersRegister1=customerRepository.saveAll(List.of(
-             new Customer("Miriam Lopez","miram123@azm.com","123456",null),
-             new Customer("Marc Bol","miB123@azm.com","134456",null),
-               new Customer("Pep El","Pd123@azm.com","234456",null),
-               new Customer("Luis Bolivar","LB123@azm.com","234356",null)
+      Customer customer1;
+      Customer customer4;
+      Customer customer3;
+      Customer customer2;
+      customersRegister1=customerRepository.saveAll(List.of(
+            customer1= new Customer("Miriam Lopez","miram123@azm.com","123456",null),
+            customer2= new Customer("Marc Bol","miB123@azm.com","134456",null),
+              customer3=new Customer("Pep El","Pd123@azm.com","234456",null),
+              customer4= new Customer("Luis Bolivar","LB123@azm.com","234356",null)
 
        ));
 
+       Manager generalManager= new Manager("Arturo Mendoza","art123@abc.com",customersRegister1,null,null);
 
-       Manager generalManager= new Manager("Arturo Mendoza","art123@abc.com",customersRegister1,null);
-       Manager operationalManager= new Manager("Magna Sanchez","Ms123@abc.com",customersRegister1,null);
-       managers=managerRepository.saveAll(List.of(generalManager,operationalManager));
+       managers=managerRepository.saveAll(List.of(generalManager));
+
+       for (Customer customer : customersRegister1) {
+           customer.setManager(generalManager);
+       }
+
+       customerRepository.saveAll(customersRegister1);
 
    }
-
-
-
+  /*@BeforeEach
+       void tearDown(){
+       managerRepository.deleteAll();
+       customerRepository.deleteAll();
+   }*/
+    @Test
+    void updateDb(){}
 }

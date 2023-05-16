@@ -24,10 +24,10 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeEmail) {
+    public Employee(String employeeName, String employeeEmail, Manager manager) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
-
+        this.manager = manager;
     }
 
     public Long getId() {
