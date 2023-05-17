@@ -20,14 +20,19 @@ public class Employee {
     @JoinColumn(name="manager_id")
     private Manager manager;
 
+    @OneToMany(mappedBy = "inventoryClerk")
+
+    private List<Inventory>inventories;
+
 
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeEmail, Manager manager) {
+    public Employee(String employeeName, String employeeEmail, Manager manager, List<Inventory> inventories) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
         this.manager = manager;
+        this.inventories = inventories;
     }
 
     public Long getId() {
@@ -62,16 +67,24 @@ public class Employee {
         this.manager = manager;
     }
 
+    public List<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) && Objects.equals(employeeName, employee.employeeName) && Objects.equals(employeeEmail, employee.employeeEmail) && Objects.equals(manager, employee.manager);
+        return Objects.equals(id, employee.id) && Objects.equals(employeeName, employee.employeeName) && Objects.equals(employeeEmail, employee.employeeEmail) && Objects.equals(manager, employee.manager) && Objects.equals(inventories, employee.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, employeeName, employeeEmail, manager);
+        return Objects.hash(id, employeeName, employeeEmail, manager, inventories);
     }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.JOINED )
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;
@@ -25,12 +25,16 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, String email, String creditCardInfo, Manager manager) {
+    public Customer(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, Manager manager) {
         this.name = name;
         this.email = email;
         this.creditCardInfo = creditCardInfo;
-
+        this.purchaseList = purchaseList;
         this.manager = manager;
+    }
+
+    public List<CustomerOrder> getPurchaseList() {
+        return purchaseList;
     }
 
     public Long getId() {
@@ -46,11 +50,12 @@ public class Customer {
     }
 
     public void setName(String name) {
-        if (name.matches("[a-zA-Z]+\\s+[a-zA-Z]+")) {
+        this.name = name;
+       /* if (name.matches("[a-zA-Z]+\\s+[a-zA-Z]+")) {
             this.name = name;
         } else {
             throw new IllegalArgumentException("El nombre debe estar en el formato 'nombre apellido'");
-        }
+        }*/
     }
 
     public String getEmail() {

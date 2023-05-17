@@ -1,5 +1,5 @@
 package ironhack.com.MedicalEquiment.Web.enums;
 
-public enum ItemCondition {
+public enum InventoryClause {
     Damage, Defective, Expire, Restorable
 }

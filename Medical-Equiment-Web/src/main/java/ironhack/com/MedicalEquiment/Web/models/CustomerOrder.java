@@ -18,22 +18,31 @@ public class CustomerOrder {
     private Long id;
     @NotNull
     private LocalDate orderDate;
-    @NotNull
+    @NonNull
     private Long qty;
 
     private BigDecimal profit;
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
-//Relacion con el inventario donde se toma el item
 
 
+    //se aplicara si el Customer es Student con un DTO
+    private String codeDiscount;
+
+    //Relacion con el cliente en general
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer orderedBy;
 
+    @OneToOne
+    @JoinColumn(name="discount_id")
+    private Student student;
+
     @ManyToOne
     @JoinColumn(name="inventory_id")
     private Inventory inventory;
+
+
 
     @OneToMany(mappedBy = "customerOrder")
     private List<ReturnInventory> returnInventories;
@@ -42,11 +51,12 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, Customer orderedBy, Inventory inventory, List<ReturnInventory> returnInventories) {
+    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory, List<ReturnInventory> returnInventories) {
         this.orderDate = orderDate;
         this.qty = qty;
         this.profit = profit;
         this.orderType = orderType;
+        this.codeDiscount = codeDiscount;
         this.orderedBy = orderedBy;
         this.inventory = inventory;
         this.returnInventories = returnInventories;

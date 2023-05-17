@@ -27,7 +27,10 @@ public class Inventory {
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
-
+    //empleado encargado del inventario
+@ManyToOne
+@JoinColumn(name = "employee_id")
+private Employee inventoryClerk;
 
     @OneToMany(mappedBy = "inventory")
     private List<CustomerOrder> customerOrders;
@@ -36,11 +39,12 @@ public class Inventory {
     public Inventory() {
     }
 
-    public Inventory(Item item, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<CustomerOrder> customerOrders) {
+    public Inventory(Item item, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee inventoryClerk, List<CustomerOrder> customerOrders) {
         this.item = item;
         this.createdInventoryDate = createdInventoryDate;
         this.qty = qty;
         this.itemStatus = itemStatus;
+        this.inventoryClerk = inventoryClerk;
         this.customerOrders = customerOrders;
     }
 
@@ -84,6 +88,14 @@ public class Inventory {
         this.itemStatus = itemStatus;
     }
 
+    public Employee getInventoryClerk() {
+        return inventoryClerk;
+    }
+
+    public void setInventoryClerk(Employee inventoryClerk) {
+        this.inventoryClerk = inventoryClerk;
+    }
+
     public List<CustomerOrder> getCustomerOrders() {
         return customerOrders;
     }
@@ -97,11 +109,11 @@ public class Inventory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(customerOrders, inventory.customerOrders);
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(inventoryClerk, inventory.inventoryClerk) && Objects.equals(customerOrders, inventory.customerOrders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, createdInventoryDate, qty, itemStatus, customerOrders);
+        return Objects.hash(id, item, createdInventoryDate, qty, itemStatus, inventoryClerk, customerOrders);
     }
 }
