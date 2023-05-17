@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
+
     List<Customer> findCustomerByName(String name);
     List<Customer> findCustomerByEmail(String name);
     List<Customer> findCustomerByManager(Manager manager);

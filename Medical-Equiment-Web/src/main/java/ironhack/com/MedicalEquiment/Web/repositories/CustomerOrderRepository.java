@@ -14,6 +14,9 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Lo
  //Query JPA que consulta relacion entre los clientes y el tipo de orden (return o purchase)
  List<CustomerOrder> findOrderedByOrderType(OrderType orderType);
 
+ //Query JPA que consulta la cantidad de ordenes de descuentos
+ List<CustomerOrder> findStudentById(OrderType orderType);
+
  //Query JPA que consulta Ordenes por tipo (return o purchase)
  List<CustomerOrder> findCustomerOrderByOrderType(OrderType orderType);
 
