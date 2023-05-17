@@ -28,11 +28,11 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeEmail, Manager manager, List<Inventory> inventories) {
+    public Employee(String employeeName, String employeeEmail, Manager manager) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
         this.manager = manager;
-        this.inventories = inventories;
+
     }
 
     public Long getId() {

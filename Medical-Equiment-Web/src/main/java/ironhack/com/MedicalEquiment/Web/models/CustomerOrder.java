@@ -51,7 +51,7 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory, List<ReturnInventory> returnInventories) {
+    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
         this.orderDate = orderDate;
         this.qty = qty;
         this.profit = profit;
@@ -59,7 +59,7 @@ public class CustomerOrder {
         this.codeDiscount = codeDiscount;
         this.orderedBy = orderedBy;
         this.inventory = inventory;
-        this.returnInventories = returnInventories;
+
     }
 
     public Long getId() {
