@@ -8,6 +8,7 @@ import jakarta.persistence.OneToOne;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class OutboundInventory extends  Inventory{
@@ -19,6 +20,10 @@ public class OutboundInventory extends  Inventory{
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Manager manager;
+
+    public OutboundInventory() {
+
+    }
 
     public OutboundInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<Employee> employees, CustomerOrder customerOrder, Manager manager) {
         super(item, expiredDate, createdInventoryDate, qty, itemStatus, employees);
@@ -41,6 +46,18 @@ public class OutboundInventory extends  Inventory{
     public void setManager(Manager manager) {
         this.manager = manager;
     }
-    // Resta la cantidad pedida del inventario actual permitiendo que sea negativa
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        OutboundInventory that = (OutboundInventory) o;
+        return Objects.equals(customerOrder, that.customerOrder) && Objects.equals(manager, that.manager);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), customerOrder, manager);
+    }
 }

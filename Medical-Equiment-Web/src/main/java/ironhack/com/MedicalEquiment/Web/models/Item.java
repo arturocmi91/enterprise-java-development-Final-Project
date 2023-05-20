@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ public class Item {
     private String itemName;
     private BigDecimal itemPrice;
 
-
+@JsonIgnore
     @OneToMany(mappedBy ="item")
     private List<Inventory> inventories;
 

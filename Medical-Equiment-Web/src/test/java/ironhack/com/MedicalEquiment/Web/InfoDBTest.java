@@ -1,6 +1,5 @@
 package ironhack.com.MedicalEquiment.Web;
 
-import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import ironhack.com.MedicalEquiment.Web.models.*;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class AddInfoDBTest {
+@ActiveProfiles({"test"})
+public class InfoDBTest {
     @Autowired
    private CustomerRepository customerRepository;
     @Autowired
@@ -141,10 +142,7 @@ public class AddInfoDBTest {
 
        ));
 
-       returnInventories= returnInventoryRepository.saveAll(List.of(
-               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(),customerOrders.get(3).getQty(),ItemStatus.UNSELLABLE,employees,null,customerOrders.get(3),generalManager)
 
-       ));
 
        outboundInventories=outboundInventoryRepository.saveAll(List.of(
                new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(),-customerOrders.get(0).getQty(),ItemStatus.SELLOUT,employees,customerOrders.get(0), generalManager),
@@ -152,25 +150,18 @@ public class AddInfoDBTest {
                new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(),-customerOrders.get(2).getQty(),ItemStatus.SELLOUT,employees,customerOrders.get(2), generalManager)
        ));
 
-
-
-
-
-
            }
 
 
 
 
 
-       /*
-       for (Customer customer : customersRegister) {
-           customer.setManager(generalManager);
-       }
 
-       customerRepository.saveAll(customersRegister);*/
-
-
+ @BeforeEach
+       void tearDown() {
+     managerRepository.deleteAll();
+     customerRepository.deleteAll();
+ }
     @Test
-    void updateDb(){}
+    void shouldAddNewCustomer(){}
 }
