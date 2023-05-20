@@ -23,9 +23,7 @@ public class CustomerService {
     private ReturnInventoryRepository returnInventoryRepository;
 
     public List<Item> showAllProduct() {
-       /* if(itemRepository.findAll().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No hay doctores Registrados");
-        }*/
+
         return itemRepository.findAll();
     }
 }
