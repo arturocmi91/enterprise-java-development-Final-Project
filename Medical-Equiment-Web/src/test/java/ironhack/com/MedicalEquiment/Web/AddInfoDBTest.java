@@ -33,6 +33,8 @@ public class AddInfoDBTest {
    private ItemRepository itemRepository;
    @Autowired
    private ReturnInventoryRepository returnInventoryRepository;
+    @Autowired
+    private OutboundInventoryRepository outboundInventoryRepository;
 
 
    List<Customer>customersRegister=new ArrayList<>();
@@ -42,6 +44,7 @@ public class AddInfoDBTest {
    List<Item>items=new ArrayList<>();
    List<Inventory>inventories=new ArrayList<>();
    List<ReturnInventory>returnInventories=new ArrayList<>();
+   List<OutboundInventory>outboundInventories=new ArrayList<>();
    @BeforeEach
     public void setup(){
 
@@ -117,10 +120,10 @@ public class AddInfoDBTest {
 
 
        customerOrders=customerOrderRepository.saveAll(List.of(
-               new CustomerOrder(LocalDate.now(), 12L,null, OrderType.Purchase,null,customer1,inventory1),
-               new CustomerOrder(LocalDate.now(), 12L,null, OrderType.Purchase,student2.getCodeDiscount(),student2,inventory1),
-               new CustomerOrder(LocalDate.now(), 12L,null, OrderType.Purchase,student2.getCodeDiscount(),student2,inventory1),
-               new CustomerOrder(LocalDate.now(), 5l,null, OrderType.Return,student2.getCodeDiscount(),student2,inventory2)
+               new CustomerOrder(LocalDate.now(), 12,null, OrderType.Purchase,null,customer1,inventory1),
+               new CustomerOrder(LocalDate.now(), 12,null, OrderType.Purchase,student2.getCodeDiscount(),student2,inventory1),
+               new CustomerOrder(LocalDate.now(), 12,null, OrderType.Purchase,student2.getCodeDiscount(),student2,inventory1),
+               new CustomerOrder(LocalDate.now(), 5,null, OrderType.Return,student2.getCodeDiscount(),student2,inventory2)
 
        ));
 
@@ -134,8 +137,19 @@ public class AddInfoDBTest {
        customerRepository.saveAll(customersRegister);
 
        returnInventories= returnInventoryRepository.saveAll(List.of(
-                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(),customerOrders.get(3).getQty().intValue(),ItemStatus.UNSELLABLE,employees,null,customerOrders.get(3),generalManager)
+                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(),customerOrders.get(3).getQty(),ItemStatus.UNSELLABLE,employees,null,customerOrders.get(3),generalManager)
 
+       ));
+
+       returnInventories= returnInventoryRepository.saveAll(List.of(
+               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(),customerOrders.get(3).getQty(),ItemStatus.UNSELLABLE,employees,null,customerOrders.get(3),generalManager)
+
+       ));
+
+       outboundInventories=outboundInventoryRepository.saveAll(List.of(
+               new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(),-customerOrders.get(0).getQty(),ItemStatus.SELLOUT,employees,customerOrders.get(0), generalManager),
+               new OutboundInventory(customerOrders.get(1).getInventory().getItem(), customerOrders.get(1).getInventory().getExpiredDate(), LocalDate.now(),-customerOrders.get(1).getQty(),ItemStatus.SELLOUT,employees,customerOrders.get(1), generalManager),
+               new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(),-customerOrders.get(2).getQty(),ItemStatus.SELLOUT,employees,customerOrders.get(2), generalManager)
        ));
 
 

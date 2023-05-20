@@ -19,7 +19,7 @@ public class CustomerOrder {
     @NotNull
     private LocalDate orderDate;
     @NonNull
-    private Long qty;
+    private Integer qty;
 
     private BigDecimal profit;
     @Enumerated(EnumType.STRING)
@@ -49,7 +49,7 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(@NotNull LocalDate orderDate, @NonNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
+    public CustomerOrder(@NotNull LocalDate orderDate, @NonNull Integer qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
         this.orderDate = orderDate;
         this.qty = qty;
         this.profit = profit;
@@ -97,11 +97,11 @@ public class CustomerOrder {
         this.orderDate = orderDate;
     }
 
-    public Long getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Long qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
@@ -158,5 +158,16 @@ public class CustomerOrder {
         this.returnInventories = returnInventories;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerOrder order = (CustomerOrder) o;
+        return Objects.equals(id, order.id) && orderDate.equals(order.orderDate) && qty.equals(order.qty) && Objects.equals(profit, order.profit) && orderType == order.orderType && Objects.equals(codeDiscount, order.codeDiscount) && Objects.equals(orderedBy, order.orderedBy) && Objects.equals(inventory, order.inventory) && Objects.equals(returnInventories, order.returnInventories);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, orderDate, qty, profit, orderType, codeDiscount, orderedBy, inventory, returnInventories);
+    }
 }

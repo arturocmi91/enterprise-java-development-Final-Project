@@ -17,6 +17,8 @@ public class Manager extends Employee {
 
     @OneToMany(mappedBy = "manager")
     private List<ReturnInventory> returnInventories;
+    @OneToMany(mappedBy = "manager")
+    private List<OutboundInventory> outboundInventories;
 
 
     public Manager() {

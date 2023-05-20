@@ -10,28 +10,27 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Inventory {
+public  class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="item_id")
+    @JoinColumn(name = "item_id")
     private Item item;
     private LocalDate expiredDate;
 
     private LocalDate createdInventoryDate;
 
-    private  Integer qty;
-
+    private Integer qty;
 
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
     //empleado encargado del inventario
-@ManyToMany
+    @ManyToMany
 //@JoinColumn(name = "employee_id")
-private List<Employee> employees;
+    private List<Employee> employees;
 
     @OneToMany(mappedBy = "inventory")
     private List<CustomerOrder> customerOrders;
@@ -125,4 +124,5 @@ private List<Employee> employees;
     public int hashCode() {
         return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employees, customerOrders);
     }
+
 }
