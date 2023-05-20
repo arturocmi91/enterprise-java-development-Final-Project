@@ -18,6 +18,7 @@ public class Inventory {
     @ManyToOne
     @JoinColumn(name="item_id")
     private Item item;
+    private LocalDate expiredDate;
 
     private LocalDate createdInventoryDate;
 
@@ -28,9 +29,9 @@ public class Inventory {
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
     //empleado encargado del inventario
-@ManyToOne
-@JoinColumn(name = "employee_id")
-private Employee inventoryClerk;
+@ManyToMany
+//@JoinColumn(name = "employee_id")
+private List<Employee> employees;
 
     @OneToMany(mappedBy = "inventory")
     private List<CustomerOrder> customerOrders;
@@ -39,13 +40,13 @@ private Employee inventoryClerk;
     public Inventory() {
     }
 
-    public Inventory(Item item, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee inventoryClerk, List<CustomerOrder> customerOrders) {
+    public Inventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<Employee> employees) {
         this.item = item;
+        this.expiredDate = expiredDate;
         this.createdInventoryDate = createdInventoryDate;
         this.qty = qty;
         this.itemStatus = itemStatus;
-        this.inventoryClerk = inventoryClerk;
-        this.customerOrders = customerOrders;
+        this.employees = employees;
     }
 
     public Long getId() {
@@ -62,6 +63,14 @@ private Employee inventoryClerk;
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public LocalDate getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(LocalDate expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
     public LocalDate getCreatedInventoryDate() {
@@ -88,12 +97,12 @@ private Employee inventoryClerk;
         this.itemStatus = itemStatus;
     }
 
-    public Employee getInventoryClerk() {
-        return inventoryClerk;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setInventoryClerk(Employee inventoryClerk) {
-        this.inventoryClerk = inventoryClerk;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public List<CustomerOrder> getCustomerOrders() {
@@ -109,11 +118,11 @@ private Employee inventoryClerk;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(inventoryClerk, inventory.inventoryClerk) && Objects.equals(customerOrders, inventory.customerOrders);
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employees, inventory.employees) && Objects.equals(customerOrders, inventory.customerOrders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, createdInventoryDate, qty, itemStatus, inventoryClerk, customerOrders);
+        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employees, customerOrders);
     }
 }

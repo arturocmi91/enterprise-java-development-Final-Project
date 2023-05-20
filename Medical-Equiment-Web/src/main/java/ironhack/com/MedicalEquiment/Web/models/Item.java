@@ -13,7 +13,7 @@ public class Item {
     private String id;
     private String itemName;
     private BigDecimal itemPrice;
-    private LocalDate expiredDate;
+
 
     @OneToMany(mappedBy ="item")
     private List<Inventory> inventories;
@@ -21,18 +21,10 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, BigDecimal itemPrice, LocalDate expiredDate, List<Inventory> inventories) {
+    public Item(String id, String itemName, BigDecimal itemPrice, List<Inventory> inventories) {
+        this.id = id;
         this.itemName = itemName;
-        itemPrice = itemPrice;
-        this.expiredDate = expiredDate;
-        this.inventories = inventories;
-    }
-
-    public List<Inventory> getInventories() {
-        return inventories;
-    }
-
-    public void setInventories(List<Inventory> inventories) {
+        this.itemPrice = itemPrice;
         this.inventories = inventories;
     }
 
@@ -57,15 +49,15 @@ public class Item {
     }
 
     public void setItemPrice(BigDecimal itemPrice) {
-        itemPrice = itemPrice;
+        this.itemPrice = itemPrice;
     }
 
-    public LocalDate getExpiredDate() {
-        return expiredDate;
+    public List<Inventory> getInventories() {
+        return inventories;
     }
 
-    public void setExpiredDate(LocalDate expiredDate) {
-        this.expiredDate = expiredDate;
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
     }
 
     @Override
@@ -73,11 +65,11 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(itemPrice, item.itemPrice) && Objects.equals(expiredDate, item.expiredDate) && Objects.equals(inventories, item.inventories);
+        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(itemPrice, item.itemPrice) && Objects.equals(inventories, item.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemName, itemPrice, expiredDate, inventories);
+        return Objects.hash(id, itemName, itemPrice, inventories);
     }
 }

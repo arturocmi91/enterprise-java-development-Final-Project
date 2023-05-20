@@ -15,24 +15,24 @@ public class Employee {
     private String employeeName;
     private String employeeEmail;
 
+    @ManyToMany(mappedBy = "employees")
+
+    private List<Inventory>inventories;
+
 
     @ManyToOne
     @JoinColumn(name="manager_id")
     private Manager manager;
 
-    @OneToMany(mappedBy = "inventoryClerk")
-
-    private List<Inventory>inventories;
-
 
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeEmail, Manager manager) {
+    public Employee(String employeeName, String employeeEmail, List<Inventory> inventories, Manager manager) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
+        this.inventories = inventories;
         this.manager = manager;
-
     }
 
     public Long getId() {

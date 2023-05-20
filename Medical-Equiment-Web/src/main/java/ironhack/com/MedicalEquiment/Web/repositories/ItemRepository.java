@@ -18,6 +18,5 @@ public interface ItemRepository extends JpaRepository<Item,String> {
     //Query JPA que consulta el nombre del item
     Item findItemByItemPrice(BigDecimal price);
 
-    //Query JPA que consulta los item proximos a vencerse
-    List<Inventory> findByExpiredDateBetween(LocalDate start, LocalDate end);
+
 }

@@ -22,9 +22,11 @@ public class Manager extends Employee {
     public Manager() {
     }
 
-    public Manager(String employeeName, String employeeEmail, Manager manager) {
-        super(employeeName, employeeEmail, manager);
-
+    public Manager(String employeeName, String employeeEmail, List<Inventory> inventories, Manager manager, List<Customer> customers, List<Employee> employees, List<ReturnInventory> returnInventories) {
+        super(employeeName, employeeEmail, inventories, manager);
+        this.customers = customers;
+        this.employees = employees;
+        this.returnInventories = returnInventories;
     }
 
     public List<ReturnInventory> getReturnInventories() {

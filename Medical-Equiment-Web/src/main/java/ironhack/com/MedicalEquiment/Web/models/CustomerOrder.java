@@ -34,9 +34,7 @@ public class CustomerOrder {
     @JoinColumn(name="customer_id")
     private Customer orderedBy;
 
-    @OneToOne
-    @JoinColumn(name="discount_id")
-    private Student student;
+
 
     @ManyToOne
     @JoinColumn(name="inventory_id")
@@ -51,16 +49,37 @@ public class CustomerOrder {
     public CustomerOrder() {
     }
 
-    public CustomerOrder(@NotNull LocalDate orderDate, @NotNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
+    public CustomerOrder(@NotNull LocalDate orderDate, @NonNull Long qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
         this.orderDate = orderDate;
         this.qty = qty;
         this.profit = profit;
         this.orderType = orderType;
         this.codeDiscount = codeDiscount;
         this.orderedBy = orderedBy;
-        this.inventory = inventory;
 
+        this.inventory = inventory;
     }
+
+    public String getCodeDiscount() {
+
+        return codeDiscount;
+    }
+
+    public void setCodeDiscount(String codeDiscount) {
+        //Valida el codigo de estudiante es correcto en el customerOrder
+        if (orderedBy instanceof Student student) {
+            if (student.getCodeDiscount() != null) {
+                this.codeDiscount = student.getCodeDiscount();
+            } else {
+            }
+        } else {
+            this.codeDiscount = codeDiscount;
+        }
+    }
+
+
+
+
 
     public Long getId() {
         return id;
@@ -86,13 +105,26 @@ public class CustomerOrder {
         this.qty = qty;
     }
 
+
+
     public BigDecimal getProfit() {
         return profit;
     }
 
     public void setProfit(BigDecimal profit) {
-        this.profit = profit;
+        //encargado de validar el descuento si aplica
+        if (orderedBy instanceof Student && codeDiscount != null) {
+            Student student = (Student) orderedBy;
+            BigDecimal discount = student.getStudentDiscount();
+            BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
+            BigDecimal discountedPrice = totalPrice.multiply(discount);
+            this.profit = totalPrice.subtract(discountedPrice);
+        } else {
+            BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
+            this.profit = totalPrice;
+        }
     }
+
 
     public OrderType getOrderType() {
         return orderType;
@@ -126,16 +158,5 @@ public class CustomerOrder {
         this.returnInventories = returnInventories;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerOrder that = (CustomerOrder) o;
-        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) && Objects.equals(returnInventories, that.returnInventories);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, orderDate, qty, profit, orderType, orderedBy, inventory, returnInventories);
-    }
 }

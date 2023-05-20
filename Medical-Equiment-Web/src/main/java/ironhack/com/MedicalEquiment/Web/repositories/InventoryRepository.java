@@ -23,6 +23,9 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     //Query JPA que consulta los inventarios  por cantidad de item
     List<Inventory> findInventoryByQty(OrderType orderType);
 
+    //Query JPA que consulta los item proximos a vencerse
+    List<Inventory> findByExpiredDateBetween(LocalDate start, LocalDate end);
+
     //Query JPA que consulta Inventarios  por fecha de creacion en rangos
     List<Inventory> findByCreatedInventoryDateBetween(LocalDate start, LocalDate end);
 
