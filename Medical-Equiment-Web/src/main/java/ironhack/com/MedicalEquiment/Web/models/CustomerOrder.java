@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
@@ -30,18 +31,19 @@ public class CustomerOrder {
     private String codeDiscount;
 
     //Relacion con el cliente en general
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer orderedBy;
 
 
-
+@JsonIgnore
     @ManyToOne
     @JoinColumn(name="inventory_id")
     private Inventory inventory;
 
 
-
+@JsonIgnore
     @OneToMany(mappedBy = "customerOrder")
     private List<ReturnInventory> returnInventories;
 
@@ -76,7 +78,6 @@ public class CustomerOrder {
             this.codeDiscount = codeDiscount;
         }
     }
-
 
 
 
@@ -124,7 +125,6 @@ public class CustomerOrder {
             this.profit = totalPrice;
         }
     }
-
 
     public OrderType getOrderType() {
         return orderType;

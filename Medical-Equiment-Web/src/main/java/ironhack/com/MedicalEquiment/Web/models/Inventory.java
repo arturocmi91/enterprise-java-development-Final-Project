@@ -1,6 +1,8 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
+import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import jakarta.persistence.*;
 
 import javax.lang.model.element.Name;
@@ -15,6 +17,7 @@ public  class Inventory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
@@ -27,11 +30,13 @@ public  class Inventory {
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
-    //empleado encargado del inventario
-    @ManyToMany
-//@JoinColumn(name = "employee_id")
-    private List<Employee> employees;
 
+    //empleado encargado del inventario
+
+    @ManyToOne
+    @JoinColumn(name = "was_create_By")
+    private Employee employee;
+@JsonIgnore
     @OneToMany(mappedBy = "inventory")
     private List<CustomerOrder> customerOrders;
 
@@ -39,13 +44,14 @@ public  class Inventory {
     public Inventory() {
     }
 
-    public Inventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<Employee> employees) {
+    public Inventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee) {
         this.item = item;
         this.expiredDate = expiredDate;
         this.createdInventoryDate = createdInventoryDate;
         this.qty = qty;
         this.itemStatus = itemStatus;
-        this.employees = employees;
+        this.employee = employee;
+
     }
 
     public Long getId() {
@@ -96,12 +102,12 @@ public  class Inventory {
         this.itemStatus = itemStatus;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public List<CustomerOrder> getCustomerOrders() {
@@ -114,15 +120,15 @@ public  class Inventory {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employees, inventory.employees) && Objects.equals(customerOrders, inventory.customerOrders);
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employee, inventory.employee) && Objects.equals(customerOrders, inventory.customerOrders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employees, customerOrders);
+        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employee, customerOrders);
     }
-
 }

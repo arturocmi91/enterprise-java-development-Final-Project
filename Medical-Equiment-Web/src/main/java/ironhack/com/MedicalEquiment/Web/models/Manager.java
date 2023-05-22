@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -8,16 +9,21 @@ import java.util.Objects;
 
 @Entity
 public class Manager extends Employee {
-
+@JsonIgnore
     @OneToMany(mappedBy = "manager")
     private List<Customer> customers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "manager")
     private List<ReturnInventory> returnInventories;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "manager")
+
     private List<OutboundInventory> outboundInventories;
 
 

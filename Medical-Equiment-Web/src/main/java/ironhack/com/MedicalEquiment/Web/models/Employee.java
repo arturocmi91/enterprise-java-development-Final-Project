@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,11 +16,12 @@ public class Employee {
     private String employeeName;
     private String employeeEmail;
 
-    @ManyToMany(mappedBy = "employees")
+    @JsonIgnore
+    @OneToMany(mappedBy = "employee")
 
     private List<Inventory>inventories;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="manager_id")
     private Manager manager;

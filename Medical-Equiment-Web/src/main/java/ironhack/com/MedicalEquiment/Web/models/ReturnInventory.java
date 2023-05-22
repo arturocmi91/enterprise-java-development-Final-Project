@@ -28,10 +28,10 @@ private Manager manager;
     public ReturnInventory() {
     }
 
-    public ReturnInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<Employee> employees, InventoryClause inventoryClause, CustomerOrder customerOrder, Manager manager) {
-        super(item, expiredDate, createdInventoryDate, qty, itemStatus, employees);
+    public ReturnInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee,  InventoryClause inventoryClause, Manager manager) {
+        super(item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
         this.inventoryClause = inventoryClause;
-        this.customerOrder = customerOrder;
+
         this.manager = manager;
     }
 

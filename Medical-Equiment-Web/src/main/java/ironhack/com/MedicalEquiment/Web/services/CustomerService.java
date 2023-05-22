@@ -1,5 +1,7 @@
 package ironhack.com.MedicalEquiment.Web.services;
 
+import ironhack.com.MedicalEquiment.Web.enums.OrderType;
+import ironhack.com.MedicalEquiment.Web.models.CustomerOrder;
 import ironhack.com.MedicalEquiment.Web.models.Item;
 import ironhack.com.MedicalEquiment.Web.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,14 @@ public class CustomerService {
     public List<Item> showAllProduct() {
 
         return itemRepository.findAll();
+    }
+
+    public Item findItemByName(String itemName) {
+        return itemRepository.findItemByItemName(itemName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "El ítem con nombre '" + itemName + "' no existe en la base de datos"));
+    }
+
+    public List<CustomerOrder> showAllPO(OrderType Purchase) {
+        return customerOrderRepository.findCustomerOrderByOrderType(OrderType.Purchase);
+
     }
 }

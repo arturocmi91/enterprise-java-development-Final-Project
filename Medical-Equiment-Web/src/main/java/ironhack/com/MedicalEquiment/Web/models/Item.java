@@ -2,17 +2,24 @@ package ironhack.com.MedicalEquiment.Web.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.math.*;
 
 @Entity
 public class Item {
     @Id
+    @NotNull
     private String id;
+    @NotNull
     private String itemName;
+
+
     private BigDecimal itemPrice;
 
 @JsonIgnore

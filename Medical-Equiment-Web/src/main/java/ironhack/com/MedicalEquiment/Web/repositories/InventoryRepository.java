@@ -33,7 +33,9 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     List<Inventory> findInventoryClerkByItemStatus(ItemStatus status);
 
     //Query JPA que consulta los items manejados por de cada empleado (SELLABLE , UNSELLABLE)
-    List<Inventory> findInventoryClerkByItem(Item item);
+    List<Inventory> findInventoryClerkByItem(String item);
+    //Query JPA que consulta Inventarios  por codigos de barras
+    List<Inventory> findInventoryByItem(String item);
 
 }
 

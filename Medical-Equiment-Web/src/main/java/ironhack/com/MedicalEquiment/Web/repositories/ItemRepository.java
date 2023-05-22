@@ -10,13 +10,14 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item,String> {
     //Query JPA que consulta el nombre del item
-   Item findItemByItemName(String name);
+    Optional<Item> findItemByItemName(String itemName);
     //Query JPA que consulta el nombre del item
-    Item findItemByItemPrice(BigDecimal price);
+    Optional<Item> findItemByItemPrice(BigDecimal price);
 
 
 }

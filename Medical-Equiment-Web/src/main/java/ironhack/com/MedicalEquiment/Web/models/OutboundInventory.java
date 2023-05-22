@@ -25,9 +25,9 @@ public class OutboundInventory extends  Inventory{
 
     }
 
-    public OutboundInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, List<Employee> employees, CustomerOrder customerOrder, Manager manager) {
-        super(item, expiredDate, createdInventoryDate, qty, itemStatus, employees);
-        this.customerOrder = customerOrder;
+    public OutboundInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee,  Manager manager) {
+        super(item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
+
         this.manager = manager;
     }
 
