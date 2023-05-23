@@ -191,6 +191,13 @@ inventories=inventoryRepository.saveAll(List.of(inventory15));
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
+    //Employee>>>>  GET ByCreatedDate andExpect(status().isOK())
+    @Test
+    void shouldReturnInventoriesByRangeOfCreatedDate_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios/info/date-of-Created?FROM=2023-05-23&TO=2023-05-23")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
 
 
 
