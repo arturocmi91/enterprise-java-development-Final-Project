@@ -1,8 +1,11 @@
 package ironhack.com.MedicalEquiment.Web.services;
 
+import ironhack.com.MedicalEquiment.Web.models.ReturnInventory;
 import ironhack.com.MedicalEquiment.Web.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ManagerService {
@@ -19,4 +22,8 @@ public class ManagerService {
     private ReturnInventoryRepository returnInventoryRepository;
     @Autowired
     private OutboundInventoryRepository outboundInventoryRepository;
+
+    public List<ReturnInventory> findAllReturn() {
+        return returnInventoryRepository.findAll();
+    }
 }

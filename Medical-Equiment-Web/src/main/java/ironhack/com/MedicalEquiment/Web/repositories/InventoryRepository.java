@@ -24,10 +24,10 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     List<Inventory> findInventoryByQty(OrderType orderType);
 
     //Query JPA que consulta los item proximos a vencerse
-    List<Inventory> findByExpiredDateBetween(LocalDate start, LocalDate end);
+    List<Inventory> findByExpiredDateBetween(LocalDate startDate, LocalDate endDate);
 
     //Query JPA que consulta Inventarios  por fecha de creacion en rangos
-    List<Inventory> findByCreatedInventoryDateBetween(LocalDate start, LocalDate end);
+    List<Inventory> findByCreatedInventoryDateBetween(LocalDate startDate, LocalDate endDate);
 
     //Query JPA que consulta los status manejados por cada empleado (SELLABLE , UNSELLABLE)
     List<Inventory> findInventoryClerkByItemStatus(ItemStatus status);
@@ -35,7 +35,7 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     //Query JPA que consulta los items manejados por de cada empleado (SELLABLE , UNSELLABLE)
     List<Inventory> findInventoryClerkByItem(String item);
     //Query JPA que consulta Inventarios  por codigos de barras
-    List<Inventory> findInventoryByItem(String item);
+    List<Inventory> findInventoryByItem(Item item);
 
 }
 

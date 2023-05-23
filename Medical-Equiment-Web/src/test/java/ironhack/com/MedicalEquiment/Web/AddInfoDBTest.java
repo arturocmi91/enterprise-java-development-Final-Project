@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+
 public class AddInfoDBTest {
     @Autowired
    private CustomerRepository customerRepository;
@@ -136,17 +138,27 @@ public class AddInfoDBTest {
        customerRepository.saveAll(customersRegister);
 
        returnInventories = returnInventoryRepository.saveAll(List.of(
+               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
+               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager)
 
        ));
-
-
+      for (ReturnInventory returnInventory : returnInventories) {
+         returnInventory.setCustomerOrder(customerOrders.get(3));
+      }
+      returnInventoryRepository.saveAll(returnInventories);
 
        outboundInventories = outboundInventoryRepository.saveAll(List.of(
-               new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(), -customerOrders.get(0).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager),
-               new OutboundInventory(customerOrders.get(1).getInventory().getItem(), customerOrders.get(1).getInventory().getExpiredDate(), LocalDate.now(), -customerOrders.get(1).getQty(), ItemStatus.SELLOUT, inventoryClerk, generalManager),
-               new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(), -customerOrders.get(2).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager)
+               new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(0).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager),
+               new OutboundInventory(customerOrders.get(1).getInventory().getItem(), customerOrders.get(1).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(1).getQty(), ItemStatus.SELLOUT, inventoryClerk, generalManager),
+               new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(2).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager)
        ));
+
+        outboundInventories.get(0).setCustomerOrder(customerOrders.get(0));
+        outboundInventories.get(1).setCustomerOrder(customerOrders.get(1));
+        outboundInventories.get(2).setCustomerOrder(customerOrders.get(2));
+      outboundInventoryRepository.saveAll(outboundInventories);
+      
 
 
    }

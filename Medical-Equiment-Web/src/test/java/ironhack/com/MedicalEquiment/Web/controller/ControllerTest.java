@@ -79,18 +79,46 @@ public class ControllerTest {
         Item item30;
         items=itemRepository.saveAll(List.of(
 
-                item30 = new Item("00315","Paletas PaleMedEquip", BigDecimal.valueOf(12.0),new ArrayList<>())
+                item30 = new Item("00315","Paletas PaleMedEquip", BigDecimal.valueOf(12.0),null)
         ));
         //Inventory Info
         Inventory inventory15;
+        inventory15 = new Inventory(item30, LocalDate.of(2024, 6, 28), LocalDate.now(), 50, ItemStatus.SELLABLE, null);
+inventories=inventoryRepository.saveAll(List.of(inventory15));
+        for (Item item : items) {
+            item.setInventories(inventories);
+        }
+        itemRepository.saveAll(items);
+
+
+        Employee inventoryClerk;
+        Employee qualityClerk;
+        Manager generalManager;
+        employees = employeeRepository.saveAll(List.of(
+                inventoryClerk = new Employee("Jose Luis", "Jl@er.com", inventories, null),
+                qualityClerk = new Employee("Luis Jose", "Lj@er.com", inventories, null),
+                generalManager = new Manager("Arturo Mendoza", "art123@abc.com", inventories, null, customersRegister, employees, returnInventories)
+        ));
+        //Asignacion de manager a los empleados
+        for (Employee employee : employees) {
+            employee.setManager(generalManager);
+            generalManager.setCustomers(customersRegister);
+        }
+        employeeRepository.saveAll(employees);
+//Asignacion de empleados a los inventarios
+        for (Inventory inventory : inventories) {
+            inventory.setEmployee(inventoryClerk);
+
+        }
+        inventoryRepository.saveAll(List.of(inventory15));
 
 
     }
     @AfterEach
     void tearDown() {
-
+        inventoryRepository.deleteAll();
        itemRepository.deleteAll();
-
+       employeeRepository.deleteAll();
     }
 //CUSTOMER>>>> Test GET method
     @Test
@@ -129,8 +157,39 @@ public class ControllerTest {
         MvcResult result=  mockMvc.perform(get("/inventarios"))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-       assertTrue(result.getResponse().getContentAsString().contains("00112"));
 
+      assertTrue(result.getResponse().getContentAsString().contains(LocalDate.of(2024, 6,28).toString()));
+
+    }
+
+    //Employee>>>> GET ByItem andExpect(status().isOK())
+
+    @Test
+    void shouldReturnInventoriesByItem_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result=  mockMvc.perform(get("/inventarios/00315"))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+    //Employee>>>> GET ById andExpect(status().isOK())
+    @Test
+    void shouldReturnInventoriesById_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result=  mockMvc.perform(get("/inventarios/info/1"))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+    //Employee>>>>  GET ById andExpect(status().isBadRequest())
+    @Test
+    void doesNotExistInventoriesById_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios/info/334564")))
+                .andExpect(status().isNotFound()).andReturn();
+    }
+
+    //Employee>>>>  GET ByExpiredDate andExpect(status().isOK())
+    @Test
+    void shouldReturnInventoriesByRangeOfExpiredDate_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios/info/date-of-Expired?FROM=2023-06-28&TO=2024-06-28")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
     }
 
 

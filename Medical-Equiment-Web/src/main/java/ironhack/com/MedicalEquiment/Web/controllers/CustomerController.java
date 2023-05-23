@@ -25,6 +25,7 @@ public class CustomerController {
 public List<Item> showsAllProduct(){
     return customerService.showAllProduct();
 }
+
     // Mostrar  los articulo por nombre
 
     @GetMapping(value = "/articulos/{itemName}")
@@ -32,6 +33,7 @@ public List<Item> showsAllProduct(){
     public Item findItemByName(@PathVariable String itemName){
     return customerService.findItemByName(itemName);
     }
+
     // Mostrar todos los articulos comprados
     @GetMapping(value="/articulos/comprados/{orderType}")
     @ResponseStatus(HttpStatus.OK)

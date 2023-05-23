@@ -163,8 +163,8 @@ public class InfoDBTest {
         inventoryRepository.deleteAll();
         itemRepository.deleteAll();
         managerRepository.deleteAll();
-        customerRepository.deleteAll();
         employeeRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 }
 
