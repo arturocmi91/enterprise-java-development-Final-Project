@@ -2,6 +2,7 @@ package ironhack.com.MedicalEquiment.Web.repositories;
 
 import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
+import ironhack.com.MedicalEquiment.Web.models.Item;
 import ironhack.com.MedicalEquiment.Web.models.ReturnInventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,9 @@ public interface ReturnInventoryRepository extends JpaRepository<ReturnInventory
 
     //Query JPA que consulta Inventarios de retorno  por fecha de creacion en rangos
     List<ReturnInventory> findByCreatedInventoryDateBetween(LocalDate start, LocalDate end);
+
+    //Query JPA que consulta Inventario de retorno  por nombre
+    ReturnInventory findReturnInventoryByItem(Item item);
 
 
 

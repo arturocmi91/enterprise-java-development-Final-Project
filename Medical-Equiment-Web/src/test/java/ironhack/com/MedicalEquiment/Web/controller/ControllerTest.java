@@ -1,6 +1,7 @@
 package ironhack.com.MedicalEquiment.Web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import ironhack.com.MedicalEquiment.Web.models.*;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -72,25 +74,54 @@ public class ControllerTest {
     public void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
+        //Customer Info
+        Customer customer1;
+        Customer customer4;
+        Customer customer3;
+        Customer customer2;
+        Student student1;
+        Student student2;
 
+        customersRegister = customerRepository.saveAll(List.of(
+                customer1 = new Customer("Miriam Lopez", "miram123@azm.com", "0042", null),
+                customer2 = new Customer("Marc Bol", "miB123@azm.com", "0032", null),
+                customer3 = new Customer("Pep El", "Pd123@azm.com", "0022", null),
+                customer4 = new Customer("Luis Bolivar", "LB123@azm.com", "0412", null),
+                student1 = new Student("Ana Nan", "ad@dd.com", "0011", null, "SD05"),
+                student2 = new Student("Luis Nan", "Ld@dd.com", "0011", null, "SD06"))
+        );
+
+
+        customerRepository.saveAll(customersRegister);
 
         //Item Info
-
-        Item item30;
-        items=itemRepository.saveAll(List.of(
-
-                item30 = new Item("00315","Paletas PaleMedEquip", BigDecimal.valueOf(12.0),null)
+        Item item1;
+        Item item2;
+        Item item3;
+        items = itemRepository.saveAll(List.of(
+                item1 = new Item("00112", "Estetoscopio MedEquip", BigDecimal.valueOf(12.0), null),
+                item2 = new Item("00245", "Guantes MedEquip", BigDecimal.valueOf(22.0), null),
+                item3 = new Item("00215", "Estetoscopio MedEquip", BigDecimal.valueOf(12.0), null)
         ));
         //Inventory Info
-        Inventory inventory15;
-        inventory15 = new Inventory(item30, LocalDate.of(2024, 6, 28), LocalDate.now(), 50, ItemStatus.SELLABLE, null);
-inventories=inventoryRepository.saveAll(List.of(inventory15));
+        Inventory inventory1;
+        Inventory inventory2;
+        Inventory inventory3;
+        Inventory inventory4;
+        inventories = inventoryRepository.saveAll(List.of(
+                inventory1 = new Inventory(item1, LocalDate.of(2024, 6, 28), LocalDate.now(), 50, ItemStatus.SELLABLE, null),
+                inventory2 = new Inventory(item1, LocalDate.of(2026, 6, 28), LocalDate.now(), 60, ItemStatus.SELLABLE, null),
+                inventory3 = new Inventory(item2, LocalDate.of(2026, 6, 28), LocalDate.now(), 200, ItemStatus.SELLABLE, null),
+                inventory4 = new Inventory(item3, LocalDate.of(2023, 6, 28), LocalDate.now(), 200, ItemStatus.SELLABLE, null)
+        ));
+
+
         for (Item item : items) {
             item.setInventories(inventories);
         }
         itemRepository.saveAll(items);
 
-
+        //Employee Info
         Employee inventoryClerk;
         Employee qualityClerk;
         Manager generalManager;
@@ -110,15 +141,59 @@ inventories=inventoryRepository.saveAll(List.of(inventory15));
             inventory.setEmployee(inventoryClerk);
 
         }
-        inventoryRepository.saveAll(List.of(inventory15));
+        inventoryRepository.saveAll(inventories);
+
+
+        customerOrders = customerOrderRepository.saveAll(List.of(
+                new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, null, customer1, inventory1),
+                new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, student2.getCodeDiscount(), student2, inventory1),
+                new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, student2.getCodeDiscount(), student2, inventory1),
+                new CustomerOrder(LocalDate.now(), 5, null, OrderType.Return, student2.getCodeDiscount(), student2, inventory2)
+
+        ));
+
+        for (CustomerOrder order : customerOrders) {
+            order.setProfit(order.getProfit());
+        }
+        customerOrderRepository.saveAll(customerOrders);
+        for (Customer customers : customersRegister) {
+            customers.setManager(generalManager);
+        }
+        customerRepository.saveAll(customersRegister);
+
+        returnInventories = returnInventoryRepository.saveAll(List.of(
+                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
+                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
+                new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager)
+
+        ));
+        for (ReturnInventory returnInventory : returnInventories) {
+            returnInventory.setCustomerOrder(customerOrders.get(3));
+        }
+        returnInventoryRepository.saveAll(returnInventories);
+
+        outboundInventories = outboundInventoryRepository.saveAll(List.of(
+                new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(0).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager),
+                new OutboundInventory(customerOrders.get(1).getInventory().getItem(), customerOrders.get(1).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(1).getQty(), ItemStatus.SELLOUT, inventoryClerk, generalManager),
+                new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(2).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager)
+        ));
+
+        outboundInventories.get(0).setCustomerOrder(customerOrders.get(0));
+        outboundInventories.get(1).setCustomerOrder(customerOrders.get(1));
+        outboundInventories.get(2).setCustomerOrder(customerOrders.get(2));
+        outboundInventoryRepository.saveAll(outboundInventories);
 
 
     }
     @AfterEach
     void tearDown() {
+        returnInventoryRepository.deleteAll();
+        outboundInventoryRepository.deleteAll();
+
         inventoryRepository.deleteAll();
-       itemRepository.deleteAll();
-       employeeRepository.deleteAll();
+        customerRepository.deleteAll();
+        itemRepository.deleteAll();
+        employeeRepository.deleteAll();
     }
 //CUSTOMER>>>> Test GET method
     @Test
@@ -153,7 +228,7 @@ inventories=inventoryRepository.saveAll(List.of(inventory15));
 
     //Employee>>>> Test GET method
     @Test
-    void shouldReturnAllInventories_WhenGetMethodIsCalled() throws Exception{
+    void shouldFindAllInventories_WhenGetMethodIsCalled() throws Exception{
         MvcResult result=  mockMvc.perform(get("/inventarios"))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -165,14 +240,14 @@ inventories=inventoryRepository.saveAll(List.of(inventory15));
     //Employee>>>> GET ByItem andExpect(status().isOK())
 
     @Test
-    void shouldReturnInventoriesByItem_WhenGetMethodIsCalled() throws Exception{
+    void shouldFindInventoriesByItem_WhenGetMethodIsCalled() throws Exception{
         MvcResult result=  mockMvc.perform(get("/inventarios/00315"))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
     //Employee>>>> GET ById andExpect(status().isOK())
     @Test
-    void shouldReturnInventoriesById_WhenGetMethodIsCalled() throws Exception{
+    void shouldFindInventoriesById_WhenGetMethodIsCalled() throws Exception{
         MvcResult result=  mockMvc.perform(get("/inventarios/info/1"))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -186,19 +261,51 @@ inventories=inventoryRepository.saveAll(List.of(inventory15));
 
     //Employee>>>>  GET ByExpiredDate andExpect(status().isOK())
     @Test
-    void shouldReturnInventoriesByRangeOfExpiredDate_WhenGetMethodIsCalled() throws Exception{
+    void shouldFindInventoriesByRangeOfExpiredDate_WhenGetMethodIsCalled() throws Exception{
         MvcResult result= mockMvc.perform((get("/inventarios/info/date-of-Expired?FROM=2023-06-28&TO=2024-06-28")))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
     //Employee>>>>  GET ByCreatedDate andExpect(status().isOK())
     @Test
-    void shouldReturnInventoriesByRangeOfCreatedDate_WhenGetMethodIsCalled() throws Exception{
+    void shouldFindInventoriesByRangeOfCreatedDate_WhenGetMethodIsCalled() throws Exception{
         MvcResult result= mockMvc.perform((get("/inventarios/info/date-of-Created?FROM=2023-05-23&TO=2023-05-23")))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
 
+    //MANAGER>>>> Test GET method
+    // Test GET Mostrar todos los Inventarios Retornados
+    @Test
+    void shouldFindReturnInventories_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios/retornados")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+    //Test GET Mostrar todos los Inventarios de salida
+    @Test
+    void shouldFindOutboundInventories_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios/salida")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+    //Test GET Mostrar todos los empleados
+    @Test
+    void shouldFindEmployees_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/empleados")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+    //Test GET Mostrar todos los clientes
+    @Test
+    void shouldFindCustomers_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/clientes")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
 
 
 

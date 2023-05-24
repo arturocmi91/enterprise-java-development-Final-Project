@@ -32,7 +32,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/inventarios/{item}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Inventory>ShowInventoriesByItem(@PathVariable Item item){
+    public List<Inventory>ShowInventoriesByItem(@RequestParam  Item item){
         return employeeService.findInventoriesByItem(item);
     }
     // Mostrar  inventario por id

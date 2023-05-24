@@ -37,7 +37,7 @@ public  class Inventory {
     @JoinColumn(name = "was_create_By")
     private Employee employee;
 @JsonIgnore
-    @OneToMany(mappedBy = "inventory")
+@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<CustomerOrder> customerOrders;
 
 

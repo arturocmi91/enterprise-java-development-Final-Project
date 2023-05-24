@@ -37,6 +37,7 @@ public class CustomerOrder {
     private Customer orderedBy;
 
 
+
 @JsonIgnore
     @ManyToOne
     @JoinColumn(name="inventory_id")
