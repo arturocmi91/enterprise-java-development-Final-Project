@@ -24,6 +24,9 @@ public interface ReturnInventoryRepository extends JpaRepository<ReturnInventory
     //Query JPA que consulta Inventario de retorno  por nombre
     ReturnInventory findReturnInventoryByItem(Item item);
 
+ //Query JPA que consulta Inventarios de retorno  por clausula
+    List<ReturnInventory> findReturnInventoryByInventoryClause(InventoryClause inventoryClause);
+
 
 
 }

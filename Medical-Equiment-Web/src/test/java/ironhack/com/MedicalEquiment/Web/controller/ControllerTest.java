@@ -297,7 +297,24 @@ public class ControllerTest {
         MvcResult result= mockMvc.perform((get("/empleados")))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
+
     }
+
+    //Test GET Mostrar empleado por Id
+    @Test
+    void shouldFindEmployeeById_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/empleados/empleado?id=1")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+    //Test Not Found GET Mostrar empleado por Id
+     @Test
+    void shouldBeNotFoundWhenFindEmployeeById_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/empleados/empleado?id=10")))
+                .andExpect(status().isNotFound()).andReturn();
+    }
+
 
     //Test GET Mostrar todos los clientes
     @Test

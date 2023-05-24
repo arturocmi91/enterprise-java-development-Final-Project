@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.controllers;
 
+import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import ironhack.com.MedicalEquiment.Web.models.CustomerOrder;
 import ironhack.com.MedicalEquiment.Web.models.Inventory;
@@ -35,6 +36,9 @@ public class EmployeeController {
     public List<Inventory>ShowInventoriesByItem(@RequestParam  Item item){
         return employeeService.findInventoriesByItem(item);
     }
+
+
+
     // Mostrar  inventario por id
 
     @GetMapping(value = "/inventarios/info/{id}")

@@ -40,7 +40,7 @@ public List<Item> showsAllProduct(){
     public List<CustomerOrder> showsAllPO(@PathVariable OrderType orderType){
         return customerService.showAllPO(OrderType.Purchase);
     }
-    // Mostrar  los articulo por nombre
+
 
 // << Metodos Post >>
 

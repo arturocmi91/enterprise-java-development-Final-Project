@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.services;
 
+import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.models.Inventory;
 import ironhack.com.MedicalEquiment.Web.models.Item;
 import ironhack.com.MedicalEquiment.Web.repositories.CustomerOrderRepository;
@@ -51,4 +52,6 @@ public class EmployeeService {
     public List<Inventory> findByCreatedDateRange(LocalDate startDate, LocalDate endDate) {
         return  inventoryRepository.findByCreatedInventoryDateBetween(startDate, endDate);
     }
+
+
 }

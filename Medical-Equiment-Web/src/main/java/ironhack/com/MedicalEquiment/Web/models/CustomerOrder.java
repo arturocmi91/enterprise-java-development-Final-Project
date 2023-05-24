@@ -22,6 +22,7 @@ public class CustomerOrder {
     @NonNull
     private Integer qty;
 
+
     private BigDecimal profit;
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
