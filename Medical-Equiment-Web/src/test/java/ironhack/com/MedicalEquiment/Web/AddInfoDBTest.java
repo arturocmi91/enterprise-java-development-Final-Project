@@ -130,6 +130,7 @@ public class AddInfoDBTest {
 
        for (CustomerOrder order : customerOrders) {
            order.setProfit(order.getProfit());
+           order.setItemId(order.getItemId());
        }
        customerOrderRepository.saveAll(customerOrders);
        for (Customer customers : customersRegister) {
@@ -158,7 +159,7 @@ public class AddInfoDBTest {
         outboundInventories.get(1).setCustomerOrder(customerOrders.get(1));
         outboundInventories.get(2).setCustomerOrder(customerOrders.get(2));
       outboundInventoryRepository.saveAll(outboundInventories);
-      
+
 
 
    }

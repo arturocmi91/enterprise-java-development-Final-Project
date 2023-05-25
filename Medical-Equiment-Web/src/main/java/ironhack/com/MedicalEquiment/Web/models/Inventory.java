@@ -14,7 +14,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.JOINED)
 public  class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -34,10 +34,10 @@ public  class Inventory {
     //empleado encargado del inventario
 
     @ManyToOne
-    @JoinColumn(name = "was_create_By")
+    @JoinColumn(name = "was_create_By" )
     private Employee employee;
 @JsonIgnore
-@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> customerOrders;
 
 

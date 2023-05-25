@@ -278,15 +278,25 @@ public class ControllerTest {
     // Test GET Mostrar todos los Inventarios Retornados
     @Test
     void shouldFindReturnInventories_WhenGetMethodIsCalled() throws Exception{
-        MvcResult result= mockMvc.perform((get("/inventarios/retornados")))
+        MvcResult result= mockMvc.perform((get("/inventarios-retornados")))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
 
+    //Test GET Mostrar Inventarios Retornados por clasula
+    @Test
+    void shouldFindReturnInventoriesByClause_WhenGetMethodIsCalled() throws Exception{
+        MvcResult result= mockMvc.perform((get("/inventarios-retornados/clausula?inventoryClause=Damage")))
+                .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+    }
+
+
+
     //Test GET Mostrar todos los Inventarios de salida
     @Test
     void shouldFindOutboundInventories_WhenGetMethodIsCalled() throws Exception{
-        MvcResult result= mockMvc.perform((get("/inventarios/salida")))
+        MvcResult result= mockMvc.perform((get("/inventarios-salida")))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }

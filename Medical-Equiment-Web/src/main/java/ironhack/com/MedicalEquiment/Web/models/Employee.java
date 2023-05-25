@@ -17,7 +17,7 @@ public class Employee {
     private String employeeEmail;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
 
     private List<Inventory>inventories;
 

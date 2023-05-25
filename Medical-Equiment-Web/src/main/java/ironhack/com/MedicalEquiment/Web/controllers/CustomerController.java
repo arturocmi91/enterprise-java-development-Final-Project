@@ -1,6 +1,8 @@
 package ironhack.com.MedicalEquiment.Web.controllers;
 
+import ironhack.com.MedicalEquiment.Web.DTO.CustomerOrderDto;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
+import ironhack.com.MedicalEquiment.Web.models.Customer;
 import ironhack.com.MedicalEquiment.Web.models.CustomerOrder;
 import ironhack.com.MedicalEquiment.Web.models.Item;
 import ironhack.com.MedicalEquiment.Web.services.CustomerService;
@@ -44,9 +46,13 @@ public List<Item> showsAllProduct(){
 
 // << Metodos Post >>
 
-   /* // Comprar Item (crear orden de compra)
-@PostMapping(value = "/comprar-articulo")
-    @ResponseStatus()*/
+
+    // Comprar Item (crear orden de compra)
+    @PostMapping(value = "/comprar-articulo")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CustomerOrder buyItem(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
+    return customerService.buyForInventory(customerOrderDto);
+    }
 
 
 

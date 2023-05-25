@@ -2,6 +2,7 @@ package ironhack.com.MedicalEquiment.Web.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
@@ -10,19 +11,19 @@ import java.util.Objects;
 @Entity
 public class Manager extends Employee {
 @JsonIgnore
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
     private List<Customer> customers;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
     private List<Employee> employees;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
     private List<ReturnInventory> returnInventories;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
 
     private List<OutboundInventory> outboundInventories;
 

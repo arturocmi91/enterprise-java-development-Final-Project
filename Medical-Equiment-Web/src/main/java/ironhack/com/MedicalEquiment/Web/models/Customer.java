@@ -15,7 +15,7 @@ public class Customer {
     private String email;
     private String creditCardInfo;
 
-    @OneToMany(mappedBy = "orderedBy",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orderedBy",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerOrder> purchaseList;
 
     @ManyToOne

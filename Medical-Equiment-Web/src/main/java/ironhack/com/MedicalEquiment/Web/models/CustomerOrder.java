@@ -15,13 +15,16 @@ import java.util.Objects;
 public class CustomerOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private LocalDate orderDate;
     @NonNull
     private Integer qty;
 
+    @OneToOne
+    @JoinColumn(name="barcode")
+    private Item itemId;
 
     private BigDecimal profit;
     @Enumerated(EnumType.STRING)
@@ -46,7 +49,7 @@ public class CustomerOrder {
 
 
 @JsonIgnore
-    @OneToMany(mappedBy = "customerOrder")
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.EAGER)
     private List<ReturnInventory> returnInventories;
 
 
@@ -71,18 +74,28 @@ public class CustomerOrder {
 
     public void setCodeDiscount(String codeDiscount) {
         //Valida el codigo de estudiante es correcto en el customerOrder
-        if (orderedBy instanceof Student student) {
+       /* if (orderedBy instanceof Student student) {
             if (student.getCodeDiscount() != null) {
                 this.codeDiscount = student.getCodeDiscount();
             } else {
             }
         } else {
-            this.codeDiscount = codeDiscount;
-        }
+
+        }*/
+        this.codeDiscount = codeDiscount;
     }
 
+    public Item getItemId() {
+        return itemId;
+    }
 
+    public void setItemId(Item itemId) {
 
+       /* if (inventory != null && inventory.getItem() != null) {
+            this.itemId = inventory.getItem();
+        }*/
+        this.itemId=itemId;
+    }
 
     public Long getId() {
         return id;
@@ -116,7 +129,7 @@ public class CustomerOrder {
 
     public void setProfit(BigDecimal profit) {
         //encargado de validar el descuento si aplica
-        if (orderedBy instanceof Student && codeDiscount != null) {
+       /* if (orderedBy instanceof Student && codeDiscount != null) {
             Student student = (Student) orderedBy;
             BigDecimal discount = student.getStudentDiscount();
             BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
@@ -125,7 +138,8 @@ public class CustomerOrder {
         } else {
             BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
             this.profit = totalPrice;
-        }
+        }*/
+        this.profit = profit;
     }
 
     public OrderType getOrderType() {
@@ -148,8 +162,10 @@ public class CustomerOrder {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
+    public Inventory setInventory(Inventory inventory) throws IllegalAccessException {
+
         this.inventory = inventory;
+        return inventory;
     }
 
     public List<ReturnInventory> getReturnInventories() {
@@ -164,12 +180,12 @@ public class CustomerOrder {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerOrder order = (CustomerOrder) o;
-        return Objects.equals(id, order.id) && orderDate.equals(order.orderDate) && qty.equals(order.qty) && Objects.equals(profit, order.profit) && orderType == order.orderType && Objects.equals(codeDiscount, order.codeDiscount) && Objects.equals(orderedBy, order.orderedBy) && Objects.equals(inventory, order.inventory) && Objects.equals(returnInventories, order.returnInventories);
+        CustomerOrder that = (CustomerOrder) o;
+        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(itemId, that.itemId) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(codeDiscount, that.codeDiscount) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) && Objects.equals(returnInventories, that.returnInventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderDate, qty, profit, orderType, codeDiscount, orderedBy, inventory, returnInventories);
+        return Objects.hash(id, orderDate, qty, itemId, profit, orderType, codeDiscount, orderedBy, inventory, returnInventories);
     }
 }

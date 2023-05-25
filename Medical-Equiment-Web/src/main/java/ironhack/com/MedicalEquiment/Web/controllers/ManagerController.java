@@ -30,7 +30,7 @@ public class ManagerController {
 
         return managerService.findReturnByName(item);
     }
-    // Mostrar  inventarios por clausula
+    // Mostrar  inventarios retornados por clausula
 
     @GetMapping(value = "/inventarios-retornados/clausula{inventoryClause}")
     @ResponseStatus(HttpStatus.OK)
