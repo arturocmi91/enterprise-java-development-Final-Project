@@ -37,5 +37,6 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     //Query JPA que consulta Inventarios  por codigos de barras
     List<Inventory> findInventoryByItem(Item item);
 
+
 }
 

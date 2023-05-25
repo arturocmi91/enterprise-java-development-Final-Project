@@ -86,9 +86,9 @@ public class AddInfoDBTest {
        Inventory inventory4;
        inventories = inventoryRepository.saveAll(List.of(
                inventory1 = new Inventory(item1, LocalDate.of(2024, 6, 28), LocalDate.now(), 50, ItemStatus.SELLABLE, null),
-               inventory2 = new Inventory(item1, LocalDate.of(2026, 6, 28), LocalDate.now(), 60, ItemStatus.SELLABLE, null),
-               inventory3 = new Inventory(item2, LocalDate.of(2026, 6, 28), LocalDate.now(), 200, ItemStatus.SELLABLE, null),
-               inventory4 = new Inventory(item3, LocalDate.of(2023, 6, 28), LocalDate.now(), 200, ItemStatus.SELLABLE, null)
+               inventory2 = new Inventory(item2, LocalDate.of(2026, 6, 28), LocalDate.now(), 60, ItemStatus.SELLABLE, null),
+               inventory3 = new Inventory(item3, LocalDate.of(2026, 6, 28), LocalDate.now(), 200, ItemStatus.SELLABLE, null)
+
        ));
 
 

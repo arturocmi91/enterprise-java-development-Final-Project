@@ -74,27 +74,30 @@ public class CustomerOrder {
 
     public void setCodeDiscount(String codeDiscount) {
         //Valida el codigo de estudiante es correcto en el customerOrder
-       /* if (orderedBy instanceof Student student) {
+     /*  if (orderedBy instanceof Student student) {
             if (student.getCodeDiscount() != null) {
                 this.codeDiscount = student.getCodeDiscount();
             } else {
             }
         } else {
 
-        }*/
         this.codeDiscount = codeDiscount;
+
+        }*/
+      this.codeDiscount = codeDiscount;
     }
 
     public Item getItemId() {
         return itemId;
     }
 
-    public void setItemId(Item itemId) {
+    public Item setItemId(Item itemId) {
 
-       /* if (inventory != null && inventory.getItem() != null) {
+        /*if (inventory != null && inventory.getItem() != null) {
             this.itemId = inventory.getItem();
         }*/
         this.itemId=itemId;
+        return itemId;
     }
 
     public Long getId() {
@@ -139,7 +142,8 @@ public class CustomerOrder {
             BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
             this.profit = totalPrice;
         }*/
-        this.profit = profit;
+     this.profit = profit;
+
     }
 
     public OrderType getOrderType() {
