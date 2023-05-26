@@ -43,14 +43,9 @@ public class CustomerOrder {
 
 
 @JsonIgnore
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="inventory_id")
     private Inventory inventory;
-
-
-@JsonIgnore
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.EAGER)
-    private List<ReturnInventory> returnInventories;
 
 
     public CustomerOrder() {
@@ -59,6 +54,7 @@ public class CustomerOrder {
     public CustomerOrder(@NotNull LocalDate orderDate, @NonNull Integer qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
         this.orderDate = orderDate;
         this.qty = qty;
+
         this.profit = profit;
         this.orderType = orderType;
         this.codeDiscount = codeDiscount;
@@ -74,7 +70,7 @@ public class CustomerOrder {
 
     public void setCodeDiscount(String codeDiscount) {
         //Valida el codigo de estudiante es correcto en el customerOrder
-     /*  if (orderedBy instanceof Student student) {
+      if (orderedBy instanceof Student student) {
             if (student.getCodeDiscount() != null) {
                 this.codeDiscount = student.getCodeDiscount();
             } else {
@@ -83,7 +79,7 @@ public class CustomerOrder {
 
         this.codeDiscount = codeDiscount;
 
-        }*/
+        }
       this.codeDiscount = codeDiscount;
     }
 
@@ -172,24 +168,18 @@ public class CustomerOrder {
         return inventory;
     }
 
-    public List<ReturnInventory> getReturnInventories() {
-        return returnInventories;
-    }
 
-    public void setReturnInventories(List<ReturnInventory> returnInventories) {
-        this.returnInventories = returnInventories;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
-        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(itemId, that.itemId) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(codeDiscount, that.codeDiscount) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) && Objects.equals(returnInventories, that.returnInventories);
+        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(itemId, that.itemId) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(codeDiscount, that.codeDiscount) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderDate, qty, itemId, profit, orderType, codeDiscount, orderedBy, inventory, returnInventories);
+        return Objects.hash(id, orderDate, qty, itemId, profit, orderType, codeDiscount, orderedBy, inventory);
     }
 }

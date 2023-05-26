@@ -33,12 +33,11 @@ public  class Inventory {
 
     //empleado encargado del inventario
 
-    @ManyToOne
+@JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "was_create_By" )
     private Employee employee;
-@JsonIgnore
-@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CustomerOrder> customerOrders;
+
 
 
     public Inventory() {
@@ -110,13 +109,7 @@ public  class Inventory {
         this.employee = employee;
     }
 
-    public List<CustomerOrder> getCustomerOrders() {
-        return customerOrders;
-    }
 
-    public void setCustomerOrders(List<CustomerOrder> customerOrders) {
-        this.customerOrders = customerOrders;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -124,11 +117,11 @@ public  class Inventory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employee, inventory.employee) && Objects.equals(customerOrders, inventory.customerOrders);
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employee, inventory.employee) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employee, customerOrders);
+        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
     }
 }

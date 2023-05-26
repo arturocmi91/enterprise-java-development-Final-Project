@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.services;
 
+import ironhack.com.MedicalEquiment.Web.DTO.ReturnInventoryDto;
 import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import ironhack.com.MedicalEquiment.Web.models.*;
@@ -70,5 +71,23 @@ public class ManagerService {
     public List<ReturnInventory> findInventoriesByClause(InventoryClause inventoryClause) {
 
         return returnInventoryRepository.findManagerByInventoryClause(inventoryClause);
+    }
+
+
+    public ReturnInventory updatedReturn(ReturnInventoryDto returnInventoryDto) {
+if(returnInventoryRepository.findById(returnInventoryDto.getId()).isPresent()){
+    ReturnInventory returnInventory=returnInventoryRepository.findById(returnInventoryDto.getId()).get();
+    returnInventory.setInventoryClause(returnInventoryDto.getInventoryClause());
+    returnInventory.setItemStatus(returnInventoryDto.getItemStatus());
+return  returnInventoryRepository.save(returnInventory);
+}
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,"El inventario no existe");
+    }
+
+    public void deleteReturnOrder(Long id) {
+      if(returnInventoryRepository.findById(id).isPresent() ){
+          returnInventoryRepository.deleteById(id);
+      }else { throw new ResponseStatusException(HttpStatus.NOT_FOUND,"El inventario a eliminar no existe");}
+
     }
 }

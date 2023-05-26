@@ -11,40 +11,27 @@ import java.util.Objects;
 @Entity
 public class Manager extends Employee {
 @JsonIgnore
-    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "manager")
     private List<Customer> customers;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
-    private List<ReturnInventory> returnInventories;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "manager",fetch = FetchType.EAGER)
-
-    private List<OutboundInventory> outboundInventories;
 
 
     public Manager() {
     }
 
-    public Manager(String employeeName, String employeeEmail, List<Inventory> inventories, Manager manager, List<Customer> customers, List<Employee> employees, List<ReturnInventory> returnInventories) {
+    public Manager(String employeeName, String employeeEmail, List<Inventory> inventories, Manager manager, List<Customer> customers, List<Employee> employees) {
         super(employeeName, employeeEmail, inventories, manager);
         this.customers = customers;
         this.employees = employees;
-        this.returnInventories = returnInventories;
+
     }
 
-    public List<ReturnInventory> getReturnInventories() {
-        return returnInventories;
-    }
 
-    public void setReturnInventories(List<ReturnInventory> returnInventories) {
-        this.returnInventories = returnInventories;
-    }
 
     public List<Customer> getCustomers() {
         return customers;
@@ -68,11 +55,11 @@ public class Manager extends Employee {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Manager manager = (Manager) o;
-        return Objects.equals(customers, manager.customers) && Objects.equals(employees, manager.employees) && Objects.equals(returnInventories, manager.returnInventories);
+        return Objects.equals(customers, manager.customers) && Objects.equals(employees, manager.employees) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), customers, employees, returnInventories);
+        return Objects.hash(super.hashCode(), customers, employees);
     }
 }

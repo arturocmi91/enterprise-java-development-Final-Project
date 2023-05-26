@@ -58,6 +58,8 @@ public class AddInfoDBTest {
        Student student1;
        Student student2;
 
+
+
        customersRegister = customerRepository.saveAll(List.of(
                customer1 = new Customer("Miriam Lopez", "miram123@azm.com", "0042", null),
                customer2 = new Customer("Marc Bol", "miB123@azm.com", "0032", null),
@@ -70,7 +72,7 @@ public class AddInfoDBTest {
 
        customerRepository.saveAll(customersRegister);
 
-       //Item Info
+      //Item Info
        Item item1;
        Item item2;
        Item item3;
@@ -91,25 +93,26 @@ public class AddInfoDBTest {
 
        ));
 
-
        for (Item item : items) {
            item.setInventories(inventories);
        }
        itemRepository.saveAll(items);
+
 
        //Employee Info
        Employee inventoryClerk;
        Employee qualityClerk;
        Manager generalManager;
        employees = employeeRepository.saveAll(List.of(
-               inventoryClerk = new Employee("Jose Luis", "Jl@er.com", inventories, null),
-               qualityClerk = new Employee("Luis Jose", "Lj@er.com", inventories, null),
-               generalManager = new Manager("Arturo Mendoza", "art123@abc.com", inventories, null, customersRegister, employees, returnInventories)
+               inventoryClerk = new Employee("Jose Luis", "Jl@er.com", new ArrayList<>(), null),
+               qualityClerk = new Employee("Luis Jose", "Lj@er.com", new ArrayList<>(), null),
+               generalManager = new Manager("Arturo Mendoza", "art123@abc.com", new ArrayList<>(), null, customersRegister, employees)
        ));
+
        //Asignacion de manager a los empleados
        for (Employee employee : employees) {
            employee.setManager(generalManager);
-           generalManager.setCustomers(customersRegister);
+          generalManager.setCustomers(customersRegister);
        }
        employeeRepository.saveAll(employees);
 //Asignacion de empleados a los inventarios
@@ -121,57 +124,34 @@ public class AddInfoDBTest {
 
 
        customerOrders = customerOrderRepository.saveAll(List.of(
-               new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, null, customer1, inventory1),
-               new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, student2.getCodeDiscount(), student2, inventory1),
-               new CustomerOrder(LocalDate.now(), 12, null, OrderType.Purchase, student2.getCodeDiscount(), student2, inventory1),
-               new CustomerOrder(LocalDate.now(), 5, null, OrderType.Return, student2.getCodeDiscount(), student2, inventory2)
+               new CustomerOrder(LocalDate.now(),12, new BigDecimal(144.00), OrderType.Purchase, null, customer1, inventory1),
+               new CustomerOrder(LocalDate.now(), 12, new BigDecimal(122.4), OrderType.Purchase, "SD06", student2, inventory1),
+               new CustomerOrder(LocalDate.now(), 12,new BigDecimal(122.4), OrderType.Purchase, "SD06", student2, inventory1),
+               new CustomerOrder(LocalDate.now(), 5,new BigDecimal(93.5), OrderType.Return, "SD06", student2, inventory2)
 
        ));
+       customerOrders.get(0).setItemId(item1);
+       customerOrders.get(1).setItemId(item1);
+       customerOrders.get(2).setItemId(item1);
+       customerOrders.get(3).setItemId(item2);
 
-       for (CustomerOrder order : customerOrders) {
-           order.setProfit(order.getProfit());
-           order.setItemId(order.getItemId());
-       }
        customerOrderRepository.saveAll(customerOrders);
-       for (Customer customers : customersRegister) {
-           customers.setManager(generalManager);
-       }
-       customerRepository.saveAll(customersRegister);
 
        returnInventories = returnInventoryRepository.saveAll(List.of(
-               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
-               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager),
-               new ReturnInventory(customerOrders.get(3).getInventory().getItem(), customerOrders.get(3).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(3).getQty(), ItemStatus.UNSELLABLE,generalManager, InventoryClause.Damage,generalManager)
+               new ReturnInventory(item2,LocalDate.of(2023,01,01),LocalDate.now(), 3, ItemStatus.UNSELLABLE,new Employee(), InventoryClause.Damage)));
 
-       ));
+
       for (ReturnInventory returnInventory : returnInventories) {
          returnInventory.setCustomerOrder(customerOrders.get(3));
       }
       returnInventoryRepository.saveAll(returnInventories);
 
        outboundInventories = outboundInventoryRepository.saveAll(List.of(
-               new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(0).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager),
-               new OutboundInventory(customerOrders.get(1).getInventory().getItem(), customerOrders.get(1).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(1).getQty(), ItemStatus.SELLOUT, inventoryClerk, generalManager),
-               new OutboundInventory(customerOrders.get(2).getInventory().getItem(), customerOrders.get(2).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(2).getQty(), ItemStatus.SELLOUT,inventoryClerk, generalManager)
+               new OutboundInventory(customerOrders.get(0).getInventory().getItem(), customerOrders.get(0).getInventory().getExpiredDate(), LocalDate.now(), customerOrders.get(0).getQty(), ItemStatus.SELLOUT,new Employee(),customerOrders.get(3))
+
        ));
 
-        outboundInventories.get(0).setCustomerOrder(customerOrders.get(0));
-        outboundInventories.get(1).setCustomerOrder(customerOrders.get(1));
-        outboundInventories.get(2).setCustomerOrder(customerOrders.get(2));
-      outboundInventoryRepository.saveAll(outboundInventories);
-
-
-
    }
-
-
-       /*
-       for (Customer customer : customersRegister) {
-           customer.setManager(generalManager);
-       }
-
-       customerRepository.saveAll(customersRegister);*/
-
 
     @Test
     void updateDb(){}

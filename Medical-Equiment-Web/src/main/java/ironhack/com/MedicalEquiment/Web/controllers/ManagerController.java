@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.controllers;
 
+import ironhack.com.MedicalEquiment.Web.DTO.ReturnInventoryDto;
 import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import ironhack.com.MedicalEquiment.Web.models.*;
@@ -90,9 +91,22 @@ public class ManagerController {
 
         return managerService.findCustomerOrdersByType(orderType);
     }
-
-
     // << Metodos POST >>
     // << Metodos PUT >>
     // << Metodos PATCH >>
+    //Metodo PATCH
+    @PatchMapping(value ="/inventarios-retornados")
+    @ResponseStatus(HttpStatus.OK)
+    public ReturnInventory updatedReturnInventory(@RequestBody ReturnInventoryDto returnInventoryDto){
+
+        return managerService.updatedReturn(returnInventoryDto);
+    }
+    // << Metodos Delete >>
+
+    @DeleteMapping(value = "/inventarios-retornados/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteReturnOrder(@PathVariable Long id){
+        managerService.deleteReturnOrder(id);
+
+    }
 }

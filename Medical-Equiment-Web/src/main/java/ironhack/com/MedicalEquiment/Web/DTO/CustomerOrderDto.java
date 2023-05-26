@@ -24,6 +24,13 @@ public class CustomerOrderDto {
 
     private String codeDiscount;
 
+    private final BigDecimal studentDiscount= new BigDecimal("0.15");
+
+    public BigDecimal getStudentDiscount() {
+
+        return studentDiscount;
+    }
+
     //Relacion con el cliente en general
     @NonNull
     private Long orderedBy;

@@ -51,8 +51,15 @@ public List<Item> showsAllProduct(){
     @PostMapping(value = "/comprar-articulo")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public CustomerOrder buyItem(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
-    return customerService.buyForInventory(customerOrderDto);
+    return customerService.buyForInventory(customerOrderDto);}
+
+    //Devolver Item (crear orden de devolucion)
+    @PostMapping(value = "/devolucion-articulo")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CustomerOrder returnItem(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
+    return customerService.returnForInventory(customerOrderDto);
     }
+
 
 
 

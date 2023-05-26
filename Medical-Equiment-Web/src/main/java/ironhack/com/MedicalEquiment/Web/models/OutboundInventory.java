@@ -17,18 +17,15 @@ public class OutboundInventory extends  Inventory{
     @JoinColumn(name="customer_order_id")
     private CustomerOrder customerOrder;
 
-    @ManyToOne
-    @JoinColumn(name="employee_id")
-    private Manager manager;
+
 
     public OutboundInventory() {
 
     }
 
-    public OutboundInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee,  Manager manager) {
+    public OutboundInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee, CustomerOrder customerOrder) {
         super(item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
-
-        this.manager = manager;
+        this.customerOrder = customerOrder;
     }
 
     public CustomerOrder getCustomerOrder() {
@@ -39,13 +36,7 @@ public class OutboundInventory extends  Inventory{
         this.customerOrder = customerOrder;
     }
 
-    public Manager getManager() {
-        return manager;
-    }
 
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -53,11 +44,11 @@ public class OutboundInventory extends  Inventory{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         OutboundInventory that = (OutboundInventory) o;
-        return Objects.equals(customerOrder, that.customerOrder) && Objects.equals(manager, that.manager);
+        return Objects.equals(customerOrder, that.customerOrder) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), customerOrder, manager);
+        return Objects.hash(super.hashCode(), customerOrder);
     }
 }

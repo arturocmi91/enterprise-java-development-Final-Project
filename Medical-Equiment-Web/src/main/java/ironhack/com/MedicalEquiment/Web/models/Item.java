@@ -20,7 +20,7 @@ public class Item {
     private BigDecimal itemPrice;
 
 @JsonIgnore
-    @OneToMany(mappedBy ="item")
+    @OneToMany(mappedBy ="item",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Inventory> inventories;
 
     public Item() {

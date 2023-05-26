@@ -63,11 +63,6 @@ public class EmployeeController {
     }
 
 
-    /*
-    // Mostrar todos los articulos comprados
-    @GetMapping(value="/articulos/comprados/{orderType}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CustomerOrder> showsAllPO(@PathVariable OrderType orderType){
-        return customerService.showAllPO(OrderType.Purchase);
-    }*/
+
+
 }
