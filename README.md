@@ -88,7 +88,7 @@
 
 ### * Derived Query Methods in Spring Data JPA Repositories (Crear Query en los JPA repositorios):
 
-###  Enlace: Derived Query Methods in Spring Data JPA Repositories
+ Enlace: [Derived Query Methods in Spring Data JPA Repositories](https://www.baeldung.com/spring-data-derived-queries)
 ###  Descripción: Este artículo proporciona información sobre cómo crear consultas personalizadas utilizando métodos derivados en los repositorios de Spring Data JPA.
 
 ### * Spring Data JPQL @Query (Querys que no resuelva por derivación el JPA):
