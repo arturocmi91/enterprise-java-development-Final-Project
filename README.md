@@ -105,3 +105,7 @@ Enlace: [Spring Data JPA Query Methods](https://docs.spring.io/spring-data/jpa/d
 
 Enlace: [Jakarta Bean Validation API](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary.html)
 ### Descripción: Este enlace lleva a la documentación de las validaciones proporcionadas por la especificación Jakarta Bean Validation. Aquí se encuentran las diferentes anotaciones y restricciones disponibles para validar datos en una aplicación Java.
+
+### * Clean Code
+Enlace:[Clean code](https://github.com/dev-marko/clean-code-book)
+### Descripción: El libro aborda diversos aspectos del desarrollo de software y se centra en la importancia de mantener un código claro, legible y fácil de entender. Proporciona principios y patrones que pueden ayudar a los programadores a mejorar la calidad de su código y a evitar problemas comunes.
