@@ -1,72 +1,49 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
-import ironhack.com.MedicalEquiment.Web.enums.ItemCondition;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
+import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
-@Table(name="return_inventory")
+//@Table(name="return_inventory")
 @Entity
-public class ReturnInventory{
+public class ReturnInventory extends  Inventory{
 
-@Id
-@GeneratedValue(strategy =GenerationType.IDENTITY)
-private Long id;
 
 @Enumerated(EnumType.STRING)
-private ItemCondition ItemCondition;
+private InventoryClause inventoryClause;
 
+@JsonIgnore
 @OneToOne
-@JoinColumn(name="item_id")
-private Item ItemBarcode;
-
-@Embedded
-private Item item;
-
-@ManyToOne
 @JoinColumn(name="customer_order_id")
 private CustomerOrder customerOrder;
+
+
 
     public ReturnInventory() {
     }
 
-    public ReturnInventory(ItemCondition itemCondition, Item itemBarcode, Item item, CustomerOrder customerOrder) {
-        ItemCondition = itemCondition;
-        ItemBarcode = itemBarcode;
-        this.item = item;
-        this.customerOrder = customerOrder;
+    public ReturnInventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee,  InventoryClause inventoryClause) {
+        super(item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
+        this.inventoryClause = inventoryClause;
+
+
     }
 
-    public Long getId() {
-        return id;
+    public void setInventoryClause(InventoryClause inventoryClause) {
+        this.inventoryClause = inventoryClause;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public InventoryClause getItemCondition() {
+        return inventoryClause;
     }
 
-    public ItemCondition getItemCondition() {
-        return ItemCondition;
-    }
-
-    public void setItemCondition(ItemCondition itemCondition) {
-        ItemCondition = itemCondition;
-    }
-
-    public Item getItemBarcode() {
-        return ItemBarcode;
-    }
-
-    public void setItemBarcode(Item itemBarcode) {
-        ItemBarcode = itemBarcode;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemCondition(InventoryClause inventoryClause) {
+        this.inventoryClause = inventoryClause;
     }
 
     public CustomerOrder getCustomerOrder() {
@@ -77,16 +54,20 @@ private CustomerOrder customerOrder;
         this.customerOrder = customerOrder;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         ReturnInventory that = (ReturnInventory) o;
-        return Objects.equals(id, that.id) && ItemCondition == that.ItemCondition && Objects.equals(ItemBarcode, that.ItemBarcode) && Objects.equals(item, that.item) && Objects.equals(customerOrder, that.customerOrder);
+        return inventoryClause == that.inventoryClause && Objects.equals(customerOrder, that.customerOrder) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ItemCondition, ItemBarcode, item, customerOrder);
+        return Objects.hash(super.hashCode(), inventoryClause, customerOrder);
     }
 }

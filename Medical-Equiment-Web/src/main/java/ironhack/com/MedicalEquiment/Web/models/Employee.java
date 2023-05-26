@@ -1,5 +1,6 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,9 +16,12 @@ public class Employee {
     private String employeeName;
     private String employeeEmail;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "employee")
-    private List<CustomerOrder> orders;
 
+    private List<Inventory>inventories;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="manager_id")
     private Manager manager;
@@ -26,10 +30,10 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeEmail, List<CustomerOrder> orders, Manager manager) {
+    public Employee(String employeeName, String employeeEmail, List<Inventory> inventories, Manager manager) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
-        this.orders = orders;
+        this.inventories = inventories;
         this.manager = manager;
     }
 
@@ -57,14 +61,6 @@ public class Employee {
         this.employeeEmail = employeeEmail;
     }
 
-    public List<CustomerOrder> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<CustomerOrder> orders) {
-        this.orders = orders;
-    }
-
     public Manager getManager() {
         return manager;
     }
@@ -73,16 +69,24 @@ public class Employee {
         this.manager = manager;
     }
 
+    public List<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) && Objects.equals(employeeName, employee.employeeName) && Objects.equals(employeeEmail, employee.employeeEmail) && Objects.equals(orders, employee.orders) && Objects.equals(manager, employee.manager);
+        return Objects.equals(id, employee.id) && Objects.equals(employeeName, employee.employeeName) && Objects.equals(employeeEmail, employee.employeeEmail) && Objects.equals(manager, employee.manager) && Objects.equals(inventories, employee.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, employeeName, employeeEmail, orders, manager);
+        return Objects.hash(id, employeeName, employeeEmail, manager, inventories);
     }
 }

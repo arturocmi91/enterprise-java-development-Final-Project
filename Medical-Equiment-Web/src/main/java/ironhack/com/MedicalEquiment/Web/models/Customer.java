@@ -9,18 +9,18 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.JOINED )
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;
     private String creditCardInfo;
 
-    @OneToMany(mappedBy = "orderedBy",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orderedBy")
     private List<CustomerOrder> purchaseList;
 
     @ManyToOne
-    @JoinColumn(name="employee_id")
-    private Employee manager;
+    @JoinColumn(name="manager_id")
+    private Manager manager;
 
     public Customer() {
     }
@@ -29,8 +29,12 @@ public class Customer {
         this.name = name;
         this.email = email;
         this.creditCardInfo = creditCardInfo;
-
         this.purchaseList = purchaseList;
+
+    }
+
+    public List<CustomerOrder> getPurchaseList() {
+        return purchaseList;
     }
 
     public Long getId() {
@@ -47,6 +51,7 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public String getEmail() {
@@ -66,12 +71,17 @@ public class Customer {
     }
 
 
-    public List<CustomerOrder> getPurchaseList() {
-        return purchaseList;
-    }
 
     public void setPurchaseList(List<CustomerOrder> purchaseList) {
         this.purchaseList = purchaseList;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -79,11 +89,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo)  && Objects.equals(purchaseList, customer.purchaseList);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(creditCardInfo, customer.creditCardInfo) && Objects.equals(manager, customer.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, creditCardInfo,  purchaseList);
+        return Objects.hash(id, name, email, creditCardInfo,  manager);
     }
 }

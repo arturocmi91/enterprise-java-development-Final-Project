@@ -8,33 +8,34 @@ import java.util.Objects;
 
 @Entity
 public class Student extends Customer{
-private String studentCodeDiscount;
-private final BigDecimal discount= new BigDecimal("0.15");
+
+    //Codigo de descuento
+        private String codeDiscount;
+    //descuento
+private final BigDecimal studentDiscount= new BigDecimal("0.15");
+
+
+
+    public Student(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, String codeDiscount) {
+        super(name, email, creditCardInfo, purchaseList);
+        this.codeDiscount = codeDiscount;
+    }
 
     public Student() {
     }
 
-    public Student(String name, String email, String creditCardInfo, List<CustomerOrder> purchaseList, String studentCodeDiscount) {
-        super(name, email, creditCardInfo, purchaseList);
-        this.studentCodeDiscount = studentCodeDiscount;
+
+    public String getCodeDiscount() {
+        return codeDiscount;
     }
 
-    public Student(String studentCodeDiscount) {
-        this.studentCodeDiscount = studentCodeDiscount;
+    public void setCodeDiscount() {
+
+        this.codeDiscount = codeDiscount;
     }
 
-
-
-    public String getStudentCodeDiscount() {
-        return studentCodeDiscount;
-    }
-
-    public void setStudentCodeDiscount(String studentCodeDiscount) {
-        this.studentCodeDiscount = studentCodeDiscount;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
+    public BigDecimal getStudentDiscount() {
+        return studentDiscount;
     }
 
     @Override
@@ -43,11 +44,11 @@ private final BigDecimal discount= new BigDecimal("0.15");
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return Objects.equals(studentCodeDiscount, student.studentCodeDiscount) && Objects.equals(discount, student.discount);
+        return Objects.equals(codeDiscount, student.codeDiscount) && Objects.equals(studentDiscount, student.studentDiscount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), studentCodeDiscount, discount);
+        return Objects.hash(super.hashCode(), codeDiscount, studentDiscount);
     }
 }

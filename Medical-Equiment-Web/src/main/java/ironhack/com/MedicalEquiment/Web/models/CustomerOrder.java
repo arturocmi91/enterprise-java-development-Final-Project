@@ -1,50 +1,99 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class CustomerOrder {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    private LocalDate orderDate;
+    @NonNull
+    private Integer qty;
 
     @OneToOne
-    @JoinColumn(name = "item_id")
-    private Item ItemBarcode;
+    @JoinColumn(name="barcode")
+    private Item itemId;
 
-    private Long Qty;
-    private LocalDate OrderDate;
+    private BigDecimal profit;
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
 
+
+    //se aplicara si el Customer es Student con un DTO
+    private String codeDiscount;
+
+    //Relacion con el cliente en general
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer orderedBy;
 
-    @OneToMany(mappedBy = "customerOrder")
-    private List<ReturnInventory> returnInventories;
 
-    @ManyToOne
-    @JoinColumn(name="employee_id")
-    private Employee employee;
 
+@JsonIgnore
+    @OneToOne
+    @JoinColumn(name="inventory_id")
+    private Inventory inventory;
 
 
     public CustomerOrder() {
     }
 
-    public CustomerOrder(Item itemBarcode, Long qty, LocalDate orderDate, OrderType orderType, Customer orderedBy, List<ReturnInventory> returnInventories) {
-        ItemBarcode = itemBarcode;
-        Qty = qty;
-        OrderDate = orderDate;
+    public CustomerOrder(@NotNull LocalDate orderDate, @NonNull Integer qty, BigDecimal profit, OrderType orderType, String codeDiscount, Customer orderedBy, Inventory inventory) {
+        this.orderDate = orderDate;
+        this.qty = qty;
+
+        this.profit = profit;
         this.orderType = orderType;
+        this.codeDiscount = codeDiscount;
         this.orderedBy = orderedBy;
-        this.returnInventories = returnInventories;
+
+        this.inventory = inventory;
+    }
+
+    public String getCodeDiscount() {
+
+        return codeDiscount;
+    }
+
+    public void setCodeDiscount(String codeDiscount) {
+        //Valida el codigo de estudiante es correcto en el customerOrder
+      if (orderedBy instanceof Student student) {
+            if (student.getCodeDiscount() != null) {
+                this.codeDiscount = student.getCodeDiscount();
+            } else {
+            }
+        } else {
+
+        this.codeDiscount = codeDiscount;
+
+        }
+      this.codeDiscount = codeDiscount;
+    }
+
+    public Item getItemId() {
+        return itemId;
+    }
+
+    public Item setItemId(Item itemId) {
+
+        /*if (inventory != null && inventory.getItem() != null) {
+            this.itemId = inventory.getItem();
+        }*/
+        this.itemId=itemId;
+        return itemId;
     }
 
     public Long getId() {
@@ -55,28 +104,42 @@ public class CustomerOrder {
         this.id = id;
     }
 
-    public Item getItemBarcode() {
-        return ItemBarcode;
-    }
-
-    public void setItemBarcode(Item itemBarcode) {
-        ItemBarcode = itemBarcode;
-    }
-
-    public Long getQty() {
-        return Qty;
-    }
-
-    public void setQty(Long qty) {
-        Qty = qty;
-    }
-
     public LocalDate getOrderDate() {
-        return OrderDate;
+        return orderDate;
     }
 
     public void setOrderDate(LocalDate orderDate) {
-        OrderDate = orderDate;
+        this.orderDate = orderDate;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        //encargado de validar el descuento si aplica
+       /* if (orderedBy instanceof Student && codeDiscount != null) {
+            Student student = (Student) orderedBy;
+            BigDecimal discount = student.getStudentDiscount();
+            BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
+            BigDecimal discountedPrice = totalPrice.multiply(discount);
+            this.profit = totalPrice.subtract(discountedPrice);
+        } else {
+            BigDecimal totalPrice = inventory.getItem().getItemPrice().multiply(new BigDecimal(qty));
+            this.profit = totalPrice;
+        }*/
+     this.profit = profit;
+
     }
 
     public OrderType getOrderType() {
@@ -95,32 +158,28 @@ public class CustomerOrder {
         this.orderedBy = orderedBy;
     }
 
-    public List<ReturnInventory> getReturnInventories() {
-        return returnInventories;
+    public Inventory getInventory() {
+        return inventory;
     }
 
-    public void setReturnInventories(List<ReturnInventory> returnInventories) {
-        this.returnInventories = returnInventories;
+    public Inventory setInventory(Inventory inventory) throws IllegalAccessException {
+
+        this.inventory = inventory;
+        return inventory;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerOrder that = (CustomerOrder) o;
-        return Objects.equals(id, that.id) && Objects.equals(ItemBarcode, that.ItemBarcode) && Objects.equals(Qty, that.Qty) && Objects.equals(OrderDate, that.OrderDate) && orderType == that.orderType && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(returnInventories, that.returnInventories) && Objects.equals(employee, that.employee);
+        return Objects.equals(id, that.id) && orderDate.equals(that.orderDate) && qty.equals(that.qty) && Objects.equals(itemId, that.itemId) && Objects.equals(profit, that.profit) && orderType == that.orderType && Objects.equals(codeDiscount, that.codeDiscount) && Objects.equals(orderedBy, that.orderedBy) && Objects.equals(inventory, that.inventory) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ItemBarcode, Qty, OrderDate, orderType, orderedBy, returnInventories, employee);
+        return Objects.hash(id, orderDate, qty, itemId, profit, orderType, codeDiscount, orderedBy, inventory);
     }
 }

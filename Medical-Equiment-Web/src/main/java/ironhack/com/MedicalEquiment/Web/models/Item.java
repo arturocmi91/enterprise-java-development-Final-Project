@@ -1,28 +1,36 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Item {
     @Id
+    @NotNull
     private String id;
+    @NotNull
     private String itemName;
-    private BigDecimal ItemPrice;
-    private LocalDate expiredDate;
+
+
+    private BigDecimal itemPrice;
+
+@JsonIgnore
+    @OneToMany(mappedBy ="item",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Inventory> inventories;
 
     public Item() {
     }
 
-    public Item(String id, String itemName, BigDecimal itemPrice, LocalDate expiredDate) {
+    public Item(String id, String itemName, BigDecimal itemPrice, List<Inventory> inventories) {
         this.id = id;
         this.itemName = itemName;
-        ItemPrice = itemPrice;
-        this.expiredDate = expiredDate;
+        this.itemPrice = itemPrice;
+        this.inventories = inventories;
     }
 
     public String getId() {
@@ -42,19 +50,19 @@ public class Item {
     }
 
     public BigDecimal getItemPrice() {
-        return ItemPrice;
+        return itemPrice;
     }
 
     public void setItemPrice(BigDecimal itemPrice) {
-        ItemPrice = itemPrice;
+        this.itemPrice = itemPrice;
     }
 
-    public LocalDate getExpiredDate() {
-        return expiredDate;
+    public List<Inventory> getInventories() {
+        return inventories;
     }
 
-    public void setExpiredDate(LocalDate expiredDate) {
-        this.expiredDate = expiredDate;
+    public void setInventories(List<Inventory> inventories) {
+        this.inventories = inventories;
     }
 
     @Override
@@ -62,11 +70,11 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(ItemPrice, item.ItemPrice) && Objects.equals(expiredDate, item.expiredDate);
+        return Objects.equals(id, item.id) && Objects.equals(itemName, item.itemName) && Objects.equals(itemPrice, item.itemPrice) && Objects.equals(inventories, item.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemName, ItemPrice, expiredDate);
+        return Objects.hash(id, itemName, itemPrice, inventories);
     }
 }

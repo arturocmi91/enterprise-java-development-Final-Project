@@ -1,6 +1,8 @@
 package ironhack.com.MedicalEquiment.Web.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
+import ironhack.com.MedicalEquiment.Web.enums.OrderType;
 import jakarta.persistence.*;
 
 import javax.lang.model.element.Name;
@@ -9,34 +11,46 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-
-public class Inventory {
+@Inheritance(strategy = InheritanceType.JOINED)
+public  class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name="item_id")
-    private Item ItemBarcode;
 
-    @Embedded
-    private Item itemInfo;
-    private Integer qty;
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+    private LocalDate expiredDate;
 
     private LocalDate createdInventoryDate;
+
+    private Integer qty;
+
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
+    //empleado encargado del inventario
+
+@JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "was_create_By" )
+    private Employee employee;
+
+
+
     public Inventory() {
     }
 
-    public Inventory(Item itemBarcode, Item itemInfo, Integer qty, LocalDate createdInventoryDate, ItemStatus itemStatus) {
-        ItemBarcode = itemBarcode;
-        this.itemInfo = itemInfo;
-        this.qty = qty;
+    public Inventory(Item item, LocalDate expiredDate, LocalDate createdInventoryDate, Integer qty, ItemStatus itemStatus, Employee employee) {
+        this.item = item;
+        this.expiredDate = expiredDate;
         this.createdInventoryDate = createdInventoryDate;
+        this.qty = qty;
         this.itemStatus = itemStatus;
+        this.employee = employee;
+
     }
 
     public Long getId() {
@@ -47,28 +61,20 @@ public class Inventory {
         this.id = id;
     }
 
-    public Item getItemBarcode() {
-        return ItemBarcode;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemBarcode(Item itemBarcode) {
-        ItemBarcode = itemBarcode;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public Item getItemInfo() {
-        return itemInfo;
+    public LocalDate getExpiredDate() {
+        return expiredDate;
     }
 
-    public void setItemInfo(Item itemInfo) {
-        this.itemInfo = itemInfo;
-    }
-
-    public Integer getQty() {
-        return qty;
-    }
-
-    public void setQty(Integer qty) {
-        this.qty = qty;
+    public void setExpiredDate(LocalDate expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
     public LocalDate getCreatedInventoryDate() {
@@ -79,6 +85,14 @@ public class Inventory {
         this.createdInventoryDate = createdInventoryDate;
     }
 
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
     public ItemStatus getItemStatus() {
         return itemStatus;
     }
@@ -87,16 +101,27 @@ public class Inventory {
         this.itemStatus = itemStatus;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return Objects.equals(id, inventory.id) && Objects.equals(ItemBarcode, inventory.ItemBarcode) && Objects.equals(itemInfo, inventory.itemInfo) && Objects.equals(qty, inventory.qty) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && itemStatus == inventory.itemStatus;
+        return Objects.equals(id, inventory.id) && Objects.equals(item, inventory.item) && Objects.equals(expiredDate, inventory.expiredDate) && Objects.equals(createdInventoryDate, inventory.createdInventoryDate) && Objects.equals(qty, inventory.qty) && itemStatus == inventory.itemStatus && Objects.equals(employee, inventory.employee) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ItemBarcode, itemInfo, qty, createdInventoryDate, itemStatus);
+        return Objects.hash(id, item, expiredDate, createdInventoryDate, qty, itemStatus, employee);
     }
 }
