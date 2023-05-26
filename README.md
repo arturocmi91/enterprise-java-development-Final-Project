@@ -8,9 +8,9 @@
 
 ### Repositorios: Se utilizan repositorios para interactuar con la base de datos y realizar operaciones de lectura y escritura sobre los modelos de datos. Los repositorios más relevantes en este proyecto son CustomerRepository, EmployeeRepository, StudentRepository, CustomerOrderRepository, ManagerRepository, InventoryRepository, ItemRepository, ReturnInventoryRepository y OutboundInventoryRepository.
 
-### Controladores: Los controladores son responsables de manejar las solicitudes HTTP entrantes y llamar a los servicios correspondientes para realizar las operaciones necesarias. En el proyecto, encontrarás controladores como ControllerTest que contiene diferentes métodos para gestionar las operaciones relacionadas con los pedidos de clientes, como realizar una compra de un artículo de inventario.
+### Controladores: Los controladores son responsables de manejar las solicitudes HTTP entrantes y llamar a los servicios correspondientes para realizar las operaciones necesarias. En el proyecto, encontrarás un sistema de Test llamado ControllerTest que contiene Test de las distintas solicitudes.
 
-### Servicios: Los servicios contienen la lógica de negocio de la aplicación y se utilizan para realizar operaciones más complejas o coordinar diferentes acciones entre los modelos de datos y los repositorios. En el proyecto, es probable que encuentres servicios como el servicio de CustomerOrder que contiene la
+### Servicios: Los servicios contienen la lógica de negocio de la aplicación y se utilizan para realizar operaciones más complejas o coordinar diferentes acciones entre los modelos de datos y los repositorios.
 
 
 ## Diagrama de caso de uso
