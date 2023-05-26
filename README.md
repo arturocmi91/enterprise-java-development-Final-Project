@@ -93,15 +93,15 @@
 
 ### * Spring Data JPQL @Query (Querys que no resuelva por derivación el JPA):
 
-### Enlace: Spring Data JPQL @Query
+ Enlace: [Spring Data JPQL @Query](https://www.baeldung.com/spring-data-jpa-query)
 ### Descripción: Este recurso ofrece una guía sobre cómo utilizar la anotación @Query en Spring Data JPA para definir consultas personalizadas en JPQL (Java Persistence Query Language) que no pueden ser resueltas por la derivación de métodos estándar.
 
 ### * Lista total de Query JPA:
 
-### Enlace: Spring Data JPA Query Methods
+Enlace: [Spring Data JPA Query Methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 ### Descripción: Este enlace proporciona la documentación oficial de Spring Data JPA, donde se encuentra una lista completa de métodos de consulta JPA que se pueden utilizar en los repositorios de Spring Data.
 
 ### * Validaciones de Jakarta:
 
-### Enlace: Jakarta Bean Validation API
+Enlace: [Jakarta Bean Validation API](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary.html)
 ### Descripción: Este enlace lleva a la documentación de las validaciones proporcionadas por la especificación Jakarta Bean Validation. Aquí se encuentran las diferentes anotaciones y restricciones disponibles para validar datos en una aplicación Java.
