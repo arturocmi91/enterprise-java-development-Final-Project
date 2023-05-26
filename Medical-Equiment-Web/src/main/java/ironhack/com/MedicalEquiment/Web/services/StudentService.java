@@ -46,6 +46,7 @@ public class StudentService {
             }
             customerOrder.setQty(customerOrderDto.getQty());
             customerOrder.setItemId(inventory.getItem());
+            customerOrder.setOrderedBy(studentRepository.findById(customerOrderDto.getOrderedBy()).get());
 
             Student student=studentRepository.findById(customerOrderDto.getOrderedBy()).get();
 
