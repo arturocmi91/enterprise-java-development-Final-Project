@@ -83,3 +83,25 @@
 ### * Documentación de la API: Generar documentación clara y detallada de la API, como el uso de OpenAPI (anteriormente conocido como Swagger), para facilitar su comprensión y promover su uso por parte de otros desarrolladores.
 
 ### * Implementar operaciones adicionales: Identificar otras operaciones relevantes para el contexto de la aplicación y agregar los correspondientes controladores y rutas para admitirlas.
+
+## Recursos
+
+### * Derived Query Methods in Spring Data JPA Repositories (Crear Query en los JPA repositorios):
+
+###  Enlace: Derived Query Methods in Spring Data JPA Repositories
+###  Descripción: Este artículo proporciona información sobre cómo crear consultas personalizadas utilizando métodos derivados en los repositorios de Spring Data JPA.
+
+### * Spring Data JPQL @Query (Querys que no resuelva por derivación el JPA):
+
+### Enlace: Spring Data JPQL @Query
+### Descripción: Este recurso ofrece una guía sobre cómo utilizar la anotación @Query en Spring Data JPA para definir consultas personalizadas en JPQL (Java Persistence Query Language) que no pueden ser resueltas por la derivación de métodos estándar.
+
+### * Lista total de Query JPA:
+
+### Enlace: Spring Data JPA Query Methods
+### Descripción: Este enlace proporciona la documentación oficial de Spring Data JPA, donde se encuentra una lista completa de métodos de consulta JPA que se pueden utilizar en los repositorios de Spring Data.
+
+### * Validaciones de Jakarta:
+
+### Enlace: Jakarta Bean Validation API
+### Descripción: Este enlace lleva a la documentación de las validaciones proporcionadas por la especificación Jakarta Bean Validation. Aquí se encuentran las diferentes anotaciones y restricciones disponibles para validar datos en una aplicación Java.
