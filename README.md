@@ -109,3 +109,7 @@ Enlace: [Jakarta Bean Validation API](https://jakarta.ee/specifications/bean-val
 ### * Clean Code
 Enlace:[Clean code](https://github.com/dev-marko/clean-code-book)
 ### Descripción: El libro aborda diversos aspectos del desarrollo de software y se centra en la importancia de mantener un código claro, legible y fácil de entender. Proporciona principios y patrones que pueden ayudar a los programadores a mejorar la calidad de su código y a evitar problemas comunes.
+
+## Presentación
+
+### Enlace:[Presentación](https://docs.google.com/presentation/d/1WxxBxQSyKhQEhwMILFJ73XhVy9FR4yqyyjcijSrHcLg/edit#slide=id.p)
