@@ -18,4 +18,14 @@
 ## Diagrama de clases
 [![Diagrama-de-Clase-Medical-Equiment-Web.jpg](https://i.postimg.cc/RCbkNGcG/Diagrama-de-Clase-Medical-Equiment-Web.jpg)](https://postimg.cc/t7WSc3vV)
 
+## Configuración y tecnologias
 
+### Se utilizó IntelliJ como entorno de desarrollo integrado (IDE).
+### Maven como sistema de gestión de dependencias para administrar las bibliotecas y recursos del proyecto.
+### Entre las dependencias utilizadas se selecciona Sping Boot, que facilita la creación de aplicaciones web y servicios RESTful y estas son:
+
+### * spring-boot-starter-web: Proporciona características para desarrollar aplicaciones web utilizando Spring MVC.
+### * spring-boot-devtools: Facilita el desarrollo con Spring Boot proporcionando funcionalidades de reinicio automático y configuración en caliente.
+### * mysql-connector-java: Conector de MySQL para establecer la conexión con la base de datos MySQL.
+### * spring-boot-starter-data-jpa: Proporciona soporte para la capa de persistencia utilizando Spring Data JPA.
+### * spring-boot-starter-security: Proporciona características de seguridad para proteger las rutas y recursos de la aplicación.
