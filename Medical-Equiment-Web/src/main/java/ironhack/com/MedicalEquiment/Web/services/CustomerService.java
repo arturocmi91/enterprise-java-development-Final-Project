@@ -58,7 +58,6 @@ public class CustomerService {
       CustomerOrder customerOrder = new CustomerOrder();
 
 
-
       //Obtener el inventario
       if (inventoryRepository.findById(customerOrderDto.getInventory()).isPresent()) {
 
@@ -81,6 +80,7 @@ public class CustomerService {
 
       customerOrder.setOrderType(OrderType.Purchase);
       customerOrder.setOrderDate(LocalDate.now());
+      customerOrder.setOrderedBy(customerRepository.findById(customerOrderDto.getOrderedBy()).get());
 
 
       return customerOrderRepository.save(customerOrder);

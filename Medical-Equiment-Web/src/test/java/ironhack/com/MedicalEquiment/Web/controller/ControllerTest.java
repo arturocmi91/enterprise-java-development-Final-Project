@@ -1,6 +1,7 @@
 package ironhack.com.MedicalEquiment.Web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ironhack.com.MedicalEquiment.Web.DTO.CustomerOrderDto;
 import ironhack.com.MedicalEquiment.Web.enums.InventoryClause;
 import ironhack.com.MedicalEquiment.Web.enums.ItemStatus;
 import ironhack.com.MedicalEquiment.Web.enums.OrderType;
@@ -225,7 +226,7 @@ public class ControllerTest {
 
     @Test
     void shouldFindInventoriesByItem_WhenGetMethodIsCalled() throws Exception{
-        MvcResult result=  mockMvc.perform(get("/inventarios/00215"))
+        MvcResult result=  mockMvc.perform(get("/inventarios?00245"))
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
@@ -317,6 +318,23 @@ public class ControllerTest {
                 .andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
     }
+    //CUSTOMER>>>> Test Post method
+    @Test
+    void shouldAddNewCustomerOrder_WhenPostMethodIsCalled() throws Exception {
+
+
+        CustomerOrderDto customerOrderDto = new CustomerOrderDto();
+        customerOrderDto.setInventory(1L); // ID del inventario existente
+        customerOrderDto.setQty(1); // Cantidad deseada
+        String body = objectMapper.writeValueAsString(customerOrderDto);
+        MvcResult result = mockMvc.perform(post("/comprar-articulo")
+                        .content(body)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+        System.out.println(result.getResponse().getContentAsString());
+    }
+
 
 
 

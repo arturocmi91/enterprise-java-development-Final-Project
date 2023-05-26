@@ -49,13 +49,13 @@ public List<Item> showsAllProduct(){
 
     // Comprar Item (crear orden de compra)
     @PostMapping(value = "/comprar-articulo")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.CREATED)
     public CustomerOrder buyItem(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
     return customerService.buyForInventory(customerOrderDto);}
 
     //Devolver Item (crear orden de devolucion)
     @PostMapping(value = "/devolucion-articulo")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.CREATED)
     public CustomerOrder returnItem(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
     return customerService.returnForInventory(customerOrderDto);
     }
