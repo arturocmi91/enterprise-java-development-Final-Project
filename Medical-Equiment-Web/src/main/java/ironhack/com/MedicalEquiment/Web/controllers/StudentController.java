@@ -18,7 +18,7 @@ public class StudentController {
     StudentService studentService;
 
     // Comprar Item (crear orden de compra)
-    @PostMapping(value = "/comprar-articulo/estudiantes")
+    @PostMapping(value = "/articulos/comprar-articulo/estudiantes")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public CustomerOrder buyItemByStudent(@RequestBody CustomerOrderDto customerOrderDto ) throws IllegalAccessException {
         return studentService.buyForStudent(customerOrderDto);}
