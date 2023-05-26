@@ -71,3 +71,15 @@
 
 ### Ruta base: /comprar-articulo/estudiantes
 ### POST /comprar-articulo/estudiantes: Compra un artículo por parte de un estudiante y crea una orden de compra.
+
+## Trabajo a futuro
+
+### Algunas posibles áreas de trabajo futuro, mejoras y otras implementaciones podrían incluir:
+
+### * Autenticación y autorización: Implementar un mecanismo de autenticación y autorización para proteger los endpoints sensibles y restringir el acceso a usuarios no autorizados.
+
+### * Paginación y ordenamiento: Implementar la paginación y el ordenamiento de los resultados devueltos en las respuestas para mejorar el rendimiento y facilitar la navegación a través de grandes conjuntos de datos.
+
+### * Documentación de la API: Generar documentación clara y detallada de la API, como el uso de OpenAPI (anteriormente conocido como Swagger), para facilitar su comprensión y promover su uso por parte de otros desarrolladores.
+
+### * Implementar operaciones adicionales: Identificar otras operaciones relevantes para el contexto de la aplicación y agregar los correspondientes controladores y rutas para admitirlas.
