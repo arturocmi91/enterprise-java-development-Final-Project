@@ -22,10 +22,52 @@
 
 ### Se utilizó IntelliJ como entorno de desarrollo integrado (IDE).
 ### Maven como sistema de gestión de dependencias para administrar las bibliotecas y recursos del proyecto.
+### Base de datos: MySQL
 ### Entre las dependencias utilizadas se selecciona Sping Boot, que facilita la creación de aplicaciones web y servicios RESTful y estas son:
 
-### * spring-boot-starter-web: Proporciona características para desarrollar aplicaciones web utilizando Spring MVC.
+### * Spring Web: Módulo de Spring que proporciona funcionalidades para el desarrollo de aplicaciones web, como la gestión de controladores y la manipulación de solicitudes HTTP.
 ### * spring-boot-devtools: Facilita el desarrollo con Spring Boot proporcionando funcionalidades de reinicio automático y configuración en caliente.
 ### * mysql-connector-java: Conector de MySQL para establecer la conexión con la base de datos MySQL.
 ### * spring-boot-starter-data-jpa: Proporciona soporte para la capa de persistencia utilizando Spring Data JPA.
 ### * spring-boot-starter-security: Proporciona características de seguridad para proteger las rutas y recursos de la aplicación.
+
+## Estructura de controladores y rutas en el proyecto es la siguiente:
+
+### * Clase CustomerController:
+
+### Ruta base: /articulos
+### GET /articulos: Muestra todos los artículos disponibles.
+### GET /articulos/{itemName}: Muestra un artículo por su nombre.
+### GET /articulos/comprados/{orderType}: Muestra todos los artículos comprados según el tipo de orden.
+### POST /articulos/comprar-articulo: Compra un artículo y crea una orden de compra.
+### POST /devolucion-articulo: Devuelve un artículo y crea una orden de devolución.
+
+### * Clase EmployeeController:
+
+###  Ruta base: /inventarios
+### GET /inventarios: Muestra todos los inventarios.
+### GET /inventarios/{item}: Muestra inventarios por artículo.
+### GET /inventarios/info/{id}: Muestra un inventario por su ID.
+### GET /inventarios/info/date-of-Expired: Muestra inventarios por fechas de caducidad.
+### GET /inventarios/info/date-of-Created: Muestra inventarios por fechas de creación.
+
+### * Clase ManagerController:
+
+### Ruta base: /inventarios-retornados
+### GET /inventarios-retornados: Muestra todos los inventarios retornados.
+### GET /inventarios-retornados/{item}: Muestra un inventario retornado por artículo.
+### GET /inventarios-retornados/clausula{inventoryClause}: Muestra inventarios retornados por cláusula.
+### GET /inventarios-salida: Muestra todos los inventarios de salida.
+### GET /empleados: Muestra todos los empleados.
+### GET /empleados/empleado{id}: Muestra información de un empleado por su ID.
+### GET /clientes: Muestra todos los clientes.
+### GET /clientes/cliente{id}: Muestra información de un cliente por su ID.
+### GET /Ordenes-de-clientes: Muestra todas las órdenes de clientes.
+### GET /Ordenes-de-clientes/tipo{orderType}: Muestra órdenes de clientes por tipo.
+### PATCH /inventarios-retornados: Actualiza un inventario retornado.
+### DELETE /inventarios-retornados/{id}: Elimina una orden de retorno.
+
+### * Clase StudentController:
+
+### Ruta base: /comprar-articulo/estudiantes
+### POST /comprar-articulo/estudiantes: Compra un artículo por parte de un estudiante y crea una orden de compra.
