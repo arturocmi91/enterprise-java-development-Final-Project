@@ -46,7 +46,6 @@
 
 ###  Ruta base: /inventarios
 ### GET /inventarios: Muestra todos los inventarios.
-### GET /inventarios/{item}: Muestra inventarios por artículo.
 ### GET /inventarios/info/{id}: Muestra un inventario por su ID.
 ### GET /inventarios/info/date-of-Expired: Muestra inventarios por fechas de caducidad.
 ### GET /inventarios/info/date-of-Created: Muestra inventarios por fechas de creación.
