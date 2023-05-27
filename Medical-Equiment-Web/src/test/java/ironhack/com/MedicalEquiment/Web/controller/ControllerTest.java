@@ -163,7 +163,9 @@ public class ControllerTest {
         customerOrderRepository.saveAll(customerOrders);
 
         returnInventories = returnInventoryRepository.saveAll(List.of(
-                new ReturnInventory(item2,LocalDate.of(2023,01,01),LocalDate.now(), 3, ItemStatus.UNSELLABLE,new Employee(), InventoryClause.Damage)));
+                new ReturnInventory(item2,LocalDate.of(2023,01,01),LocalDate.now(), 3, ItemStatus.UNSELLABLE,new Employee(), InventoryClause.Damage),
+                new ReturnInventory(item2,LocalDate.of(2023,01,01),LocalDate.now(), 3, ItemStatus.UNSELLABLE,new Employee(), InventoryClause.Damage)
+        ));
 
 
         for (ReturnInventory returnInventory : returnInventories) {
@@ -333,6 +335,12 @@ public class ControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
         System.out.println(result.getResponse().getContentAsString());
+    }
+    @Test
+    void shouldDeleteInventory_WhenDeleteMethodIsCalled() throws Exception {
+
+        mockMvc.perform(delete("/inventarios-retornados/4"))
+                .andExpect(status().isOk());
     }
 
 
