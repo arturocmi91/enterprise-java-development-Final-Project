@@ -29,13 +29,7 @@ public class EmployeeController {
 
         return employeeService.findAllInventories();
     }
-    // Mostrar  inventarios por articulo
 
-    @GetMapping(value = "/inventarios/{item}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Inventory>ShowInventoriesByItem(@RequestParam  Item item){
-        return employeeService.findInventoriesByItem(item);
-    }
 
 
 
